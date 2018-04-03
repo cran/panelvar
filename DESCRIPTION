@@ -1,0 +1,33 @@
+Package: panelvar
+Type: Package
+Title: Panel Vector Autoregression
+Version: 0.5.1
+Authors@R: c(
+    person("Michael", "Sigmund", , "michael.sigmund@oenb.at", "aut"),
+    person("Robert", "Ferstl", , "robert.ferstl@ur.de", c("aut", "cre"))
+    )
+Description: We extend two general methods of moment estimators to panel vector 
+    autoregression models (PVAR) with p lags of endogenous variables, predetermined 
+    and strictly exogenous variables. This general PVAR model contains the first 
+    difference GMM estimator by Holtz-Eakin et al. (1988) <doi:10.2307/1913103>, 
+    Arellano and Bond (1991) <doi:10.2307/2297968> and the system GMM estimator 
+    by Blundell and Bond (1998) <doi:10.1016/S0304-4076(98)00009-8>. We also 
+    provide specification tests (Hansen overidentification test, lag selection 
+    criterion and stability test of the PVAR polynomial) and classical structural 
+    analysis for PVAR models such as orthogonal and generalized impulse response 
+    functions, bootstrapped confidence intervals for impulse response analysis and 
+    forecast error variance decompositions.
+License: GPL (>= 2)
+LazyData: TRUE
+Depends: R (>= 3.4)
+Imports: knitr, MASS, Matrix (>= 1.2-11), progress, matrixcalc, texreg,
+        ggplot2, reshape2, methods
+Suggests: rmarkdown
+RoxygenNote: 6.0.1
+NeedsCompilation: no
+Packaged: 2018-03-29 15:55:14 UTC; ferstl
+Author: Michael Sigmund [aut],
+  Robert Ferstl [aut, cre]
+Maintainer: Robert Ferstl <robert.ferstl@ur.de>
+Repository: CRAN
+Date/Publication: 2018-04-03 19:01:47 UTC

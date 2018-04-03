@@ -1,0 +1,12 @@
+citHeader("To cite panelvar in publications use:")
+
+citEntry(entry = "Article",
+         title        = "Panel Vector Autoregression in R with the package panelvar",
+         author       = personList(as.person("Michael Sigmund"),
+                                   as.person("Robert Ferstl")),
+         journal      = "SSRN",
+         year         = "2017",
+         url          = "https://ssrn.com/abstract=2896087",
+         textVersion  =
+           paste("Sigmund, Michael and Ferstl, Robert, Panel Vector Autoregression in R with the package panelvar (January 11, 2017). Available at SSRN: https://ssrn.com/abstract=2896087")
+)
