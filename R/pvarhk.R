@@ -1,9 +1,8 @@
-#' Hank Kuehrsteiner Estimator for PVAR Model
+#' Hahn Kuehrsteiner Estimator for PVAR Model
 #'
 #' @param dependent_vars Dependent variables
-#' @param lags Number of lags of dependent variables
 #' @param exog_vars Exogenous variables
-#' @param transformation Demeaining \code{"demean"}
+#' @param transformation Demeaning \code{"demean"}
 #' @param data Data set
 #' @param panel_identifier Vector of panel identifiers
 #'
@@ -14,18 +13,25 @@
 #' data(Dahlberg)
 #' ex1_hk <-
 #' pvarhk(dependent_vars = c("expenditures", "revenues", "grants"),
-#'         lags = 1,
 #'         transformation = "demean",
 #'         data = Dahlberg,
 #'         panel_identifier= c("id", "year"))
+#'
+#' summary(ex1_hk)
+#'                                    
+#' @references
+#' Hahn J., Kuehrsteiner G. (2002) Asymptotically Unbiased Inference for a Dynamic Panel Model with Fixed Effects When Both n and T Are Large, \emph{Econometrica}, \bold{70}(4), 1639--1657         
 
 pvarhk <- function(dependent_vars,
-                           lags = 1,
+#                           lags = 1,
                            exog_vars,
                            transformation = c("demean"),
                            data,
                            panel_identifier = c(1, 2)){
 
+  # works only with lag 1
+  lags <- 1
+  
   # Set up Set_Vars ---------------------------------------------------------
 
   # Drop factor levels from data
@@ -185,27 +191,23 @@ pvarhk <- function(dependent_vars,
 
   Set_Vars <- na.exclude(Set_Vars)
 
+  n <-length(unique(Set_Vars$category))
 
-  #n Anzahl der Individuen (Banken)
-  n<-length(unique(Set_Vars$category))
-
-  Bankliste<-unique(Set_Vars$category)
+  catgnames<-unique(Set_Vars$category)
 
   Matrix.Greek.T<- as.matrix(Set_Vars[,lagged.vars])
 
-  List.Te <- matrix(0, nrow = length(Bankliste), ncol = 1)
+  List.Te <- matrix(0, nrow = length(catgnames), ncol = 1)
 
-  # OIDA! ####################################################################
-  #i l?uft ?ber die ILZ-Nummern
   # sth for unbalanced panels...to calculate an average T.
-  for (i1 in 1:length(Bankliste)){
+  for (i1 in 1:length(catgnames)){
 
     # Schreibe Vektor welcher f?r jede ILZ-Nummer die Zeitpunkte, an denen Daten erfasst wurden, ausgibt
-    Number.of.periods <- Set_Vars$Date_index[Set_Vars$category==Bankliste[i1]]
+    Number.of.periods <- Set_Vars$Date_index[Set_Vars$category==catgnames[i1]]
 
-    Te <- sum(Set_Vars$category==Bankliste[i1])
-    Matrix.Greek.T[Set_Vars$category == Bankliste[i1],]<- 1/Te *
-                                  Matrix.Greek.T[Set_Vars$category == Bankliste[i1],]
+    Te <- sum(Set_Vars$category==catgnames[i1])
+    Matrix.Greek.T[Set_Vars$category == catgnames[i1],]<- 1/Te *
+                                  Matrix.Greek.T[Set_Vars$category == catgnames[i1],]
 
     List.Te[i1,1] <- Te
 
@@ -279,7 +281,21 @@ pvarhk <- function(dependent_vars,
   # Results ------------------------------------------------------------------
   OLS.results <- list(coef = t(theta.hat.R), se = ols_variance_sde, pvalues = p_values_ols)
   HK.results  <- list(coef = theta.double.hat, se = hk_variance_sde, pvalues = p_values_hk)
-  results <- list(OLS = OLS.results, HK = HK.results)
+  
+  inputargs <- list(dependent_vars = dependent_vars,
+                    lags = lags,
+                    transformation = transformation,
+                    Set_Vars = Set_Vars,
+                    panel_identifier = panel_identifier,
+                    nof_observations = nof_observations,
+                    obs_per_group_avg = obs_per_group_avg,
+                    obs_per_group_min = obs_per_group_min,
+                    obs_per_group_max = obs_per_group_max,
+                    nof_groups = nof_groups
+  )
+  
+  results <- append(list(OLS = OLS.results, HK = HK.results), c(inputargs))
+  class(results) <- "pvarhk"
   results
 }
 

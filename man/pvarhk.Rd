@@ -2,19 +2,17 @@
 % Please edit documentation in R/pvarhk.R
 \name{pvarhk}
 \alias{pvarhk}
-\title{Hank Kuehrsteiner Estimator for PVAR Model}
+\title{Hahn Kuehrsteiner Estimator for PVAR Model}
 \usage{
-pvarhk(dependent_vars, lags = 1, exog_vars, transformation = c("demean"),
-  data, panel_identifier = c(1, 2))
+pvarhk(dependent_vars, exog_vars, transformation = c("demean"), data,
+  panel_identifier = c(1, 2))
 }
 \arguments{
 \item{dependent_vars}{Dependent variables}
 
-\item{lags}{Number of lags of dependent variables}
-
 \item{exog_vars}{Exogenous variables}
 
-\item{transformation}{Demeaining \code{"demean"}}
+\item{transformation}{Demeaning \code{"demean"}}
 
 \item{data}{Data set}
 
@@ -27,8 +25,13 @@ This function estimates a stationary PVAR with fixed effects.
 data(Dahlberg)
 ex1_hk <-
 pvarhk(dependent_vars = c("expenditures", "revenues", "grants"),
-        lags = 1,
         transformation = "demean",
         data = Dahlberg,
         panel_identifier= c("id", "year"))
+
+summary(ex1_hk)
+                                   
+}
+\references{
+Hahn J., Kuehrsteiner G. (2002) Asymptotically Unbiased Inference for a Dynamic Panel Model with Fixed Effects When Both n and T Are Large, \emph{Econometrica}, \bold{70}(4), 1639--1657
 }

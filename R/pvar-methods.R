@@ -1,6 +1,7 @@
 #' S3 Print Method for pvargamm
 #' @param x object
 #' @param ... further arguments
+#' @method print pvargmm
 #' @export
 
 print.pvargmm <- function(x, ...) {
@@ -11,6 +12,7 @@ print.pvargmm <- function(x, ...) {
 #' Knit Print Method for pvargmm
 #' @param x object
 #' @param ... further arguments
+#' @method knit_print pvargmm
 #' @export
 
 knit_print.pvargmm <- function(x, ...) {
@@ -21,13 +23,14 @@ knit_print.pvargmm <- function(x, ...) {
 #' S3 Summary Method for pvargmm
 #' @param object object
 #' @param ... further arguments
+#' @method summary pvargmm
 #' @export
 summary.pvargmm <- function(object, ...)
 {
   x <- object
   sumry <- list()
 
-  sumry$model_name <- paste("Dynamic Panel VAR estimation,",x$steps, "GMM")
+  sumry$model_name <- paste("Dynamic Panel VAR estimation,",ifelse(x$steps=="twostep", "two-step",ifelse(x$steps=="onestep", "one-step","")), "GMM")
   sumry$transformation <-
     switch(x$transformation,
            fd = "First-differences",
@@ -41,10 +44,24 @@ summary.pvargmm <- function(object, ...)
   sumry$obs_per_group_min <- x$obs_per_group_min
   sumry$obs_per_group_avg <- x$obs_per_group_avg
   sumry$obs_per_group_max <- x$obs_per_group_max
-  sumry$nof_groups = x$nof_groups
+  sumry$nof_groups <- x$nof_groups
 
   sumry$results <- extract(x)
-
+  
+  #sumry$transformation <- x$transformation
+  sumry$exog_vars <- x$exog_vars
+  
+  sumry$min_instr_dependent_vars <- x$min_instr_dependent_vars
+  sumry$max_instr_dependent_vars <- x$max_instr_dependent_vars
+  
+  if(is.null(x$predet_vars) == FALSE){sumry$min_instr_predet_vars = x$min_instr_predet_vars}
+  if(is.null(x$predet_vars) == FALSE){sumry$max_instr_predet_vars = x$max_instr_predet_vars}
+  if(is.null(x$predet_vars) == FALSE){sumry$predet_vars = x$predet_vars}
+  
+  sumry$collapse <- x$collapse
+  
+  sumry$instruments_standard <- ifelse(!is.null(x$exog_vars), paste0(toupper(x$transformation), ".(",paste0(x$exog_vars, collapse = " "),")"),"")
+  
   #if(object$steps != "mstep")
   sumry$hansen_j_test <- hansen_j_test(object)
 
@@ -55,6 +72,7 @@ summary.pvargmm <- function(object, ...)
 #' S3 Print Method for summary.pvargmm
 #' @param x object
 #' @param ... further arguments
+#' @method print summary.pvargmm
 #' @export
 print.summary.pvargmm <- function(x, ...) {
   cat("---------------------------------------------------\n")
@@ -68,8 +86,20 @@ print.summary.pvargmm <- function(x, ...) {
   cat("Obs per group: min =",x$obs_per_group_min,"\n")
   cat("               avg =",x$obs_per_group_avg,"\n")
   cat("               max =",x$obs_per_group_max,"\n")
+  cat("Number of instruments =", as.numeric(x$hansen_j_test$nof_instruments), "\n")
   #cat("---------------------------------------------------\n")
   print(texreg::screenreg(x$results, custom.model.names = names(x$results), digits = 4))
+  cat("\n")
+  cat("---------------------------------------------------\n")
+  cat("Instruments for ", if(x$transformation=="fd"){"first differences"},if(x$transformation=="fod"){"orthogonal deviations"}," equation\n Standard\n", sep = "")
+  cat(" ",x$instruments_standard)
+  cat("\n")
+  cat(" GMM-type\n")
+  cat("  Dependent vars: L(", x$min_instr_dependent_vars, ", ", min(x$max_instr_dependent_vars, x$obs_per_group_max),")",  sep="")
+  cat("\n")
+  if(is.null(x$predet_vars) == FALSE){cat("  Predet vars: L(", x$min_instr_predet_vars, ", ",min(x$max_instr_predet_vars, x$obs_per_group_max),")\n", sep="")}
+  cat("  Collapse = ", as.character(x$collapse),"\n")
+  cat("---------------------------------------------------\n")
   cat("\n")
   cat("Hansen test of overid. restrictions: chi2(",as.numeric(x$hansen_j_test$parameter),") = ",round(as.numeric(x$hansen_j_test$statistic),2)," Prob > chi2 = ", round(as.numeric(x$hansen_j_test$p.value),3),"\n",sep = "")
   cat("(Robust, but weakened by many instruments.)")
@@ -79,8 +109,9 @@ print.summary.pvargmm <- function(x, ...) {
 #' Knit Print summary Method
 #' @param x object
 #' @param ... further arguments
+#' @method knit_print summary.pvargmm
 #' @export
-#' @importFrom knitr knit_print
+# @importFrom knitr knit_print
 knit_print.summary.pvargmm <- function(x, ...) {
   res <- paste0(c("<p><b>",x$model_name,"</b></p>",
                   "<p>Transformation: <em>",x$transformation,"</em><br>",
@@ -91,9 +122,13 @@ knit_print.summary.pvargmm <- function(x, ...) {
                   "Obs per group: min = <em>",x$obs_per_group_min,"</em><br>",
                   "Obs per group: avg = <em>",x$obs_per_group_avg,"</em><br>",
                   "Obs per group: max = <em>",x$obs_per_group_max,"</em><br>",
+                  "Number of instruments = <em>",as.numeric(x$hansen_j_test$nof_instruments),"</em><br>",
 "</p>",
     texreg::htmlreg(x$results, custom.model.names = names(x$results), digits = 4, caption = "", center = FALSE),
-"<p>Hansen test of overid. restrictions: <em>chi2(",as.numeric(x$hansen_j_test$parameter),") = ",round(as.numeric(x$hansen_j_test$statistic),2)," Prob > chi2 = ", round(as.numeric(x$hansen_j_test$p.value),3),"<br>",
+"<p><b>", "Instruments for ", if(x$transformation=="fd"){"first differences"},if(x$transformation=="fod"){"orthogonal deviations"}," equation </b><p>Standard<br><em>",paste0(x$exog_vars, collapse = ", "),"</em></p>",
+"<p>GMM-type<br><em>","Dependent vars: L(", x$min_instr_dependent_vars, ",",min(x$max_instr_dependent_vars, x$obs_per_group_max),")", 
+if(is.null(x$predet_vars) == FALSE){c("<br>Predet vars: L(", x$min_instr_predet_vars, ", ",min(x$max_instr_predet_vars, x$obs_per_group_max))},")<br>Collapse = ",as.character(x$collapse),"</em></p>",
+"<p><b>Hansen test of overid. restrictions:</b> <em>chi2(",as.numeric(x$hansen_j_test$parameter),") = ",round(as.numeric(x$hansen_j_test$statistic),2)," Prob > chi2 = ", round(as.numeric(x$hansen_j_test$p.value),3),"<br>",
 "(Robust, but weakened by many instruments.)","</em><br>",
 "</p>"
 )
@@ -174,12 +209,23 @@ extract <- function(model, ...) UseMethod("extract")
 extract.pvargmm <- function(model, ...) {
   co.m <- coef(model)
   modelnames <- row.names(co.m)
+  # remove fod_ and fd_
+  modelnames <- substr(modelnames,nchar(model$transformation)+2,max(nchar(modelnames)))
   se.m <- se(model)
   pval.m <- pvalue(model)
   equationList <- list()
+  coef.names <- colnames(co.m)
+  
+  # remove fd_ and fod_, handel possible system constant
+  if(model$system_instruments & model$system_constant) {
+    coef.names <- c(substr(coef.names[1:(length(coef.names)-1)],nchar(model$transformation)+2,max(nchar(coef.names))),"const")
+  } else {
+    coef.names <- substr(coef.names,nchar(model$transformation)+2,max(nchar(coef.names)))
+  }
+  
   for (eq in 1:length(model$dependent_vars)) {
     tr <- texreg::createTexreg(
-      coef.names = colnames(co.m),
+      coef.names = coef.names, 
       coef = as.vector(co.m[eq,]),
       se = as.vector(se.m[eq,]),
       pvalues = as.vector(pval.m[eq,]),
@@ -354,11 +400,13 @@ hansen_j_test.pvargmm <- function(model, ...){
 
   # Number of overidentification restrictions:
   parameter_fdgmm <- (p_fdgmm - Ktot_fdgmm)
-
+  nof_instruments <- p_fdgmm 
+  
   pval_fdgmm <-  pchisq(as.numeric(system_over_id), df = parameter_fdgmm, lower.tail = FALSE)
 
   #browser()
   hansen_j_test <- list(statistic = as.numeric(system_over_id), p.value = pval_fdgmm, parameter = parameter_fdgmm,
+                        nof_instruments = nof_instruments,
                         method = "Hansen-J-Test")
 
   return(hansen_j_test)
@@ -389,7 +437,6 @@ oirf.pvargmm <- function(model, n.ahead){
     Phi <- model$second_step
 
   }
-
 
   # P <- t(chol(covm))
   MA_Phi <- ma_phi_representation(Phi = Phi,
@@ -610,7 +657,6 @@ plot.pvargirf <- function(x, cibootstrap_results, ...) {
 #' Stability of PVAR(p) model
 #' @param model PVAR model
 #' @param ... Further arguments
-#' @param x A \code{pvarstability} object required for corresponding \code{print} and \code{plot} methods
 #' @return A \code{pvarstability} object containing eigenvalue stability conditions
 #' 
 #' @export
@@ -647,7 +693,10 @@ stability.pvargmm <- function(model, ...) {
   return(res)
 }
 
-#' @describeIn stability  S3 print method for pvarstability object
+#' S3 print method for pvarstability object
+#' @param x object
+#' @param ... further arguments
+#' @method print pvarstability
 #' @export
 print.pvarstability <- function(x, ...) {
   # TODO: html version for markdown
@@ -663,7 +712,9 @@ print.pvarstability <- function(x, ...) {
   }
 }
 
-#' @describeIn stability S3 plot method for pvarstability object, returns a \code{ggplot} object
+#' S3 plot method for pvarstability object, returns a \code{ggplot} object
+#' @param x object
+#' @param ... further arguments
 #' @export
 plot.pvarstability <- function(x, ...) {
   x1 <- seq(-1,1,length=1000)

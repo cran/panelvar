@@ -4,7 +4,7 @@
 \alias{pvarfeols}
 \title{Fixed Effects Estimator for PVAR Model}
 \usage{
-pvarfeols(dependent_vars, lags = 1, exog_vars, transformation = c("demean"),
+pvarfeols(dependent_vars, lags, exog_vars, transformation = c("demean"),
   data, panel_identifier = c(1, 2))
 }
 \arguments{
@@ -14,7 +14,7 @@ pvarfeols(dependent_vars, lags = 1, exog_vars, transformation = c("demean"),
 
 \item{exog_vars}{Exogenous variables}
 
-\item{transformation}{Demeaining \code{"demean"}}
+\item{transformation}{Demeaning \code{"demean"}}
 
 \item{data}{Data set}
 
@@ -32,4 +32,6 @@ pvarfeols(dependent_vars = c("log_sales", "log_price"),
           transformation = "demean",
           data = Cigar,
           panel_identifier= c("state", "year"))
+          
+summary(ex1_feols)         
 }

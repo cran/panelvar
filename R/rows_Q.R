@@ -94,12 +94,17 @@ rows_Q_predetermined_vars <- function(nof_periods,
 
   # (2) ##########################################################################
 
-  o_1 <- max( min(nof_periods-lags, max_instr_predet_vars) -
-                (max(min_instr_predet_vars - 1, lags - 1)), max(min(nof_periods-lags,max_instr_predet_vars)  + 1 - b_1), 1)
-
+  o_1_old <- max( min(nof_periods-lags, max_instr_predet_vars) -
+                (max(min_instr_predet_vars - 1, lags - 1)), 
+              max(min(nof_periods-lags,max_instr_predet_vars)  + 1 - b_1), 1)
+  
+  o_1 <- max(min(nof_periods-2, max_instr_predet_vars)-
+                       (max(min_instr_predet_vars - 1, lags - 1)), 
+                     max(min(nof_periods-lags,max_instr_predet_vars) + 1 - b_1),1)
 
   if (lags > 2){
     o_1 <- nof_periods-lags-1
+    
   }
 
 

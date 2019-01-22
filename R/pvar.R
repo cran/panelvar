@@ -35,10 +35,10 @@
 #' 
 #' Therefore, we consider the following stationary PVAR with fixed effects.
 #' 
-#' 	\ifelse{html}{\out{<center><b>y</b><sub><i>i,t</i></sub> = (<b>I</b><sub><i>m</i></sub> - &sum;<sub><i>l=1</i></sub><sup><i>p</i></sup><b>A</b><sub><i>l</i></sub>)<b>&mu;</b><sub><i>i</i></sub> + &sum;<sub><i>l=1</i></sub><sup>p</sup><b>A</b><sub><i>l</i></sub><b>y</b><sub><i>i,t-l</i></sub> + <b>B</b><b>x</b><sub><i>i,t</i></sub> + <b>C</b><b>s</b><sub><i>i,t</i></sub> + <b>&epsilon;</b><sub><i>i,t</i></sub></center>}}{\deqn{\mathbf{y}_{i,t} = \left(\mathbf{I}_m - \sum_{l=1}^{p} \mathbf{A}_l\right) \mathbf{\mu}_i + \sum_{l = 1}^{p}\mathbf{A}_l\mathbf{y}_{i,t-l} + \mathbf{B}\mathbf{x}_{i, t} + \mathbf{C}\mathbf{s}_{i,t} + \mathbf{\epsilon}_{i,t}}}
+#' 	\ifelse{html}{\out{<center><b>y</b><sub><i>i,t</i></sub> = <b>&mu;</b><sub><i>i</i></sub> + &sum;<sub><i>l=1</i></sub><sup>p</sup><b>A</b><sub><i>l</i></sub><b>y</b><sub><i>i,t-l</i></sub> + <b>B</b><b>x</b><sub><i>i,t</i></sub> + <b>C</b><b>s</b><sub><i>i,t</i></sub> + <b>&epsilon;</b><sub><i>i,t</i></sub></center>}}{\deqn{\mathbf{y}_{i,t} = \mathbf{\mu}_i + \sum_{l = 1}^{p}\mathbf{A}_l\mathbf{y}_{i,t-l} + \mathbf{B}\mathbf{x}_{i, t} + \mathbf{C}\mathbf{s}_{i,t} + \mathbf{\epsilon}_{i,t}}}
 #'
 #'
-#' \ifelse{html}{\out{<b>I</b><sub><i>m</i></sub> denotes an an <i>m&times;m</i> identity matrix. Let <b>y</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>m</i></sup> be an <i>m&times;1</i> vector of <b>endogenous variables</b> for the <i>i</i>th cross-sectional unit at time <i>t</i>. Let <b>y</b><sub><i>i,t-l</i></sub> &isin; &real;<sup><i>m</i></sup> be an <i>m&times;1</i> vector of <b>lagged endogenous variables</b>. Let <b>x</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>k</i></sup> be an <i>k&times;1</i> vector of <b>predetermined variables</b> that are potentially correlated with past errors. Let <b>s</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>n</i></sup> be an <i>n&times;1</i> vector of <b>strictly exogenous variables</b> that neither depend on <b>&epsilon;</b><sub><i>i,t</i></sub> nor on <b>&epsilon;</b><sub><i>i,t-s</i></sub> for <i>s = 1,&hellip;,T</i>. The idiosyncratic error vector <b>&epsilon;</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>m</i></sup> is assumed to be well-behaved and independent from both the regressors <b>x</b><sub><i>i,t</i></sub>  and <b>s</b><sub><i>i,t</i></sub> and the individual error component <b>&mu;</b><sub><i>i</i></sub>. Stationarity requires that all unit roots of the PVAR model fall inside the unit circle, which therefore places some constraints on the <b>fixed effect</b> <b>&mu;</b><sub><i>i</i></sub>. The cross section <i>i</i> and the time section <i>t</i>  are defined as follows: <i>i = 1,&hellip;,N</i> and <i>t = 1,&hellip;T</i>. In this specification we assume parameter homogeneity for <b>A</b><sub><i>l</i></sub> <i>(m&times;m)</i>, <b>B</b> <i>(m&times;k)</i> and <b>C</b> <i>(m&times;n)</i> for all <i>i</i>.}}{\eqn{\mathbf{I}_m} denotes an \eqn{m\times m} identity matrix. Let \eqn{\mathbf{y}_{i,t} \in \R^m} be an \eqn{m\times 1} vector of endogenous variables for the \eqn{i}th cross-sectional unit at time \eqn{t}. Let \eqn{\mathbf{y}_{i,t-l} \in \R^m} be an \eqn{m\times 1} vector of lagged endogenous variables. Let \eqn{\mathbf{x}_{i,t} \in \R^k} be an \eqn{k \times 1} vector of predetermined variables that are potentially correlated with past errors. Let \eqn{\mathbf{s}_{i,t} \in \R^n} be an \eqn{n \times 1} vector of strictly exogenous variables that neither depend on \eqn{\epsilon_t} nor on \eqn{\epsilon_{t-s}} for \eqn{s = 1,\dots,T}. The idiosyncratic error vector \eqn{\mathbf{\epsilon}_{i,t} \in \R^m} is assumed to be well-behaved and independent from both the regressors \eqn{\mathbf{x}_{i,t}} and \eqn{\mathbf{s}_{i,t}} and the individual error component \eqn{\mathbf{\mu}_i}. Stationarity requires that all unit roots of the PVAR model fall inside the unit circle, which therefore places some constraints on the fixed effect \eqn{\mathbf{\mu}_i}. The cross section \eqn{i} and the time section \eqn{t} are defined as follows: \eqn{i = 1,2,...,N} and \eqn{t = 1,2,...,T}. In this specification we assume parameter homogeneity for \eqn{\mathbf{A}_l (m\times m)}, \eqn{\mathbf{B} (m \times k)} and \eqn{\mathbf{C} (m\times n)} for all \eqn{i}.}
+#' \ifelse{html}{\out{Let <b>y</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>m</i></sup> be an <i>m&times;1</i> vector of <b>endogenous variables</b> for the <i>i</i>th cross-sectional unit at time <i>t</i>. Let <b>y</b><sub><i>i,t-l</i></sub> &isin; &real;<sup><i>m</i></sup> be an <i>m&times;1</i> vector of <b>lagged endogenous variables</b>. Let <b>x</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>k</i></sup> be an <i>k&times;1</i> vector of <b>predetermined variables</b> that are potentially correlated with past errors. Let <b>s</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>n</i></sup> be an <i>n&times;1</i> vector of <b>strictly exogenous variables</b> that neither depend on <b>&epsilon;</b><sub><i>i,t</i></sub> nor on <b>&epsilon;</b><sub><i>i,t-s</i></sub> for <i>s = 1,&hellip;,T</i>. The idiosyncratic error vector <b>&epsilon;</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>m</i></sup> is assumed to be well-behaved and independent from both the regressors <b>x</b><sub><i>i,t</i></sub>  and <b>s</b><sub><i>i,t</i></sub> and the individual error component <b>&mu;</b><sub><i>i</i></sub>. Stationarity requires that all unit roots of the PVAR model fall inside the unit circle, which therefore places some constraints on the <b>fixed effect</b> <b>&mu;</b><sub><i>i</i></sub>. The cross section <i>i</i> and the time section <i>t</i>  are defined as follows: <i>i = 1,&hellip;,N</i> and <i>t = 1,&hellip;T</i>. In this specification we assume parameter homogeneity for <b>A</b><sub><i>l</i></sub> <i>(m&times;m)</i>, <b>B</b> <i>(m&times;k)</i> and <b>C</b> <i>(m&times;n)</i> for all <i>i</i>.}}{\eqn{\mathbf{I}_m} denotes an \eqn{m\times m} identity matrix. Let \eqn{\mathbf{y}_{i,t} \in \R^m} be an \eqn{m\times 1} vector of endogenous variables for the \eqn{i}th cross-sectional unit at time \eqn{t}. Let \eqn{\mathbf{y}_{i,t-l} \in \R^m} be an \eqn{m\times 1} vector of lagged endogenous variables. Let \eqn{\mathbf{x}_{i,t} \in \R^k} be an \eqn{k \times 1} vector of predetermined variables that are potentially correlated with past errors. Let \eqn{\mathbf{s}_{i,t} \in \R^n} be an \eqn{n \times 1} vector of strictly exogenous variables that neither depend on \eqn{\epsilon_t} nor on \eqn{\epsilon_{t-s}} for \eqn{s = 1,\dots,T}. The idiosyncratic error vector \eqn{\mathbf{\epsilon}_{i,t} \in \R^m} is assumed to be well-behaved and independent from both the regressors \eqn{\mathbf{x}_{i,t}} and \eqn{\mathbf{s}_{i,t}} and the individual error component \eqn{\mathbf{\mu}_i}. Stationarity requires that all unit roots of the PVAR model fall inside the unit circle, which therefore places some constraints on the fixed effect \eqn{\mathbf{\mu}_i}. The cross section \eqn{i} and the time section \eqn{t} are defined as follows: \eqn{i = 1,2,...,N} and \eqn{t = 1,2,...,T}. In this specification we assume parameter homogeneity for \eqn{\mathbf{A}_l (m\times m)}, \eqn{\mathbf{B} (m \times k)} and \eqn{\mathbf{C} (m\times n)} for all \eqn{i}.}
 #' 
 #' A PVAR model is hence a combination of a single equation dynamic panel model (DPM) and a vector autoregressive model (VAR).
 #' 
@@ -196,17 +196,6 @@ pvargmm <-
     Set_Vars$category <- factor(Set_Vars$category)
     Set_Vars$period <- factor(Set_Vars$period)
 
-    # Descriptive statistics --------------------------------------------------
-
-    nof_observations <- dim(data)[1]
-    data_panel_identifier <- data[panel_identifier]
-
-    obs_per_group_avg <- mean(table(data_panel_identifier[,1]), na.rm = TRUE)
-    obs_per_group_min <- min(table(data_panel_identifier[,1]), na.rm = TRUE)
-    obs_per_group_max <- max(table(data_panel_identifier[,1]), na.rm = TRUE)
-
-    nof_groups <- length(unique(data_panel_identifier[,1]))
-
     # Add lags of dependent variables -----------------------------------------
     # - xtabond sets the lagged values to NA if the non-lagged values is NA
     #   in the last period of a specific variable.
@@ -247,6 +236,18 @@ pvargmm <-
                           SIMPLIFY = FALSE
                         )
                       ))
+    
+    # Build stats here: 
+    # Descriptive statistics --------------------------------------------------
+    nof_observations <- dim(na.exclude(Set_Vars))[1]
+    data_panel_identifier <- data[panel_identifier]
+    
+    obs_per_group_avg <- mean(table(na.exclude(Set_Vars)$category), na.rm = TRUE)
+    obs_per_group_min <- min(table(na.exclude(Set_Vars)$category), na.rm = TRUE)
+    obs_per_group_max <- max(table(na.exclude(Set_Vars)$category), na.rm = TRUE)
+    
+    nof_groups <- length(unique(data_panel_identifier[,1]))
+    # -------------------------------------------------------------------------
 
     # only for System fod instruments
     if (system_instruments & transformation == "fod") {
@@ -297,6 +298,8 @@ pvargmm <-
       }
     }
 
+    
+    
     # Onestep estimation (initialization) ------------------------------------
 
     # initalize Q_i matrix (see Binder eq 6.2)
@@ -362,7 +365,7 @@ pvargmm <-
 
     position_exogenous <- ncol(Endo_Transition_Lmin_Lmax) + 1
     if(!missing(predet_vars)){position_exogenous <- position_exogenous +ncol(Predetermined_Transition_Lmin_Lmax)}
-
+    
     # Begin onestep computation loop -----------------------------------------
     # Output: Q, delta.W, delta_W_minus
 
@@ -675,7 +678,7 @@ pvargmm <-
 
       # NOTE: not pretty
       # uses zero as instruments in the matrix Q' for non available observations
-      zero_col <- as.vector(which(as.logical(rowSums(is.na(cBind(as.matrix(delta_W[[i]]), as.matrix(delta_W_minus[[i]]) ))))!=0))
+      zero_col <- as.vector(which(as.logical(rowSums(is.na(cbind(as.matrix(delta_W[[i]]), as.matrix(delta_W_minus[[i]]) ))))!=0))
       if (length(zero_col)!=0){
         Q[[i]][,zero_col] <- 0
       }
@@ -839,7 +842,10 @@ pvargmm <-
 
     # Estimate Vec-Form of Phi_first_step
     inv.Phi_firststep <- MASS::ginv( as.matrix( t(sum_S_ZX_a %x% Diagonal(nof_dependent_vars)) %*% Lambda_inv_vec %*% (sum_S_ZX_a %x% Diagonal(nof_dependent_vars)) ))
+    
     Phi_first_step_vec <- inv.Phi_firststep %*% t(sum_S_ZX_a %x% Diagonal(nof_dependent_vars)) %*% Lambda_inv_vec %*% matrix(t(sum_S_Zy_a), ncol=1)
+    
+    
 
     Phi_first_step <- matrix(Phi_first_step_vec,ncol=nof_dependent_vars*lags+nof_predet_vars+nof_exog_vars+
                                (system_instruments == TRUE)*(system_constant == TRUE)*1)
@@ -852,6 +858,7 @@ pvargmm <-
 
     Delta_E_first_step <- mapply(function(i) delta_W[[i]] - delta_W_minus[[i]] %*% t(Phi_first_step), 1:nof_categories)
     Delta_E_first_step_NA <- mapply(function(i) delta_W_NA[[i]] - delta_W_minus_NA[[i]] %*% t(Phi_first_step), 1:nof_categories)
+    
     # vectorize residuals
     e_hat <- mapply(function(i) matrix(t(Delta_E_first_step[[i]]), ncol=1), 1:nof_categories, SIMPLIFY = FALSE)
 
@@ -1077,6 +1084,7 @@ pvargmm <-
                       transformation = transformation,
                       steps = steps,
                       system_instruments = system_instruments,
+                      system_constant = system_constant,
                       collapse = collapse,
                       Set_Vars = Set_Vars,
                       panel_identifier = panel_identifier,
@@ -1107,20 +1115,24 @@ pvargmm <-
 
     if (steps == "twostep") {
       result <- list(Phi_first_step, Phi_second_step, se_first_step, se_second_step, p_values_first_step, p_values_second_step,
-                     Delta_E_second_step_NA, Delta_E_second_step,  S_EQ_first_step, Lambda_inv_vec,  D_e.inv, Q, Z, delta_W
+                     Delta_E_second_step_NA, Delta_E_second_step,  S_EQ_first_step, Lambda_inv_vec,  D_e.inv, Q, Z, delta_W,
+                     delta_W_minus
       )
       names(result) <- c("first_step", "second_step", "standard_error_first_step", "standard_error_second_step", "p_values_first_step", "p_values_second_step",
-                         "residuals", "residuals_hansen_onestep", "Z_u_Hansen", "weighting_matrix_first_step",  "weighting_matrix_second_step", "unique_instruments", "instruments", "delta_W"
+                         "residuals", "residuals_hansen_onestep", "Z_u_Hansen", "weighting_matrix_first_step",  "weighting_matrix_second_step", "unique_instruments", "instruments", "delta_W",
+                         "delta_W_minus"
       )
     }
 
     if (steps == "mstep"){
 
       result <- list(Phi_first_step, Phi_mstep[[m]], se_first_step, se_mstep, p_values_first_step, p_values_mstep,
-                     Delta_E_mstep_NA, Delta_E_mstep,  S_EQ_mstep, Lambda_inv_vec,  D_e.inv, Q, Z, delta_W
+                     Delta_E_mstep_NA, Delta_E_mstep,  S_EQ_mstep, Lambda_inv_vec,  D_e.inv, Q, Z, delta_W, 
+                     delta_W_minus
       )
       names(result) <- c("first_step", "m_step", "standard_error_first_step", "standard_error_m_step", "p_values_first_step", "p_values_m_step",
-                         "residuals", "residuals_hansen_onestep", "Z_u_Hansen", "weighting_matrix_first_step",  "weighting_matrix_m_step", "unique_instruments", "instruments", "delta_W"
+                         "residuals", "residuals_hansen_onestep", "Z_u_Hansen", "weighting_matrix_first_step",  "weighting_matrix_m_step", "unique_instruments", "instruments", "delta_W",
+                         "delta_W_minus"
       )
 
 

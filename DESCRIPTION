@@ -1,7 +1,7 @@
 Package: panelvar
 Type: Package
 Title: Panel Vector Autoregression
-Version: 0.5.1
+Version: 0.5.2
 Authors@R: c(
     person("Michael", "Sigmund", , "michael.sigmund@oenb.at", "aut"),
     person("Robert", "Ferstl", , "robert.ferstl@ur.de", c("aut", "cre"))
@@ -23,11 +23,12 @@ Depends: R (>= 3.4)
 Imports: knitr, MASS, Matrix (>= 1.2-11), progress, matrixcalc, texreg,
         ggplot2, reshape2, methods
 Suggests: rmarkdown
-RoxygenNote: 6.0.1
+Encoding: UTF-8
+RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2018-03-29 15:55:14 UTC; ferstl
+Packaged: 2019-01-22 12:15:37 UTC; FERSTL
 Author: Michael Sigmund [aut],
   Robert Ferstl [aut, cre]
 Maintainer: Robert Ferstl <robert.ferstl@ur.de>
 Repository: CRAN
-Date/Publication: 2018-04-03 19:01:47 UTC
+Date/Publication: 2019-01-22 12:50:03 UTC

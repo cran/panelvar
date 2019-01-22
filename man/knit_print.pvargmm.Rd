@@ -4,7 +4,7 @@
 \alias{knit_print.pvargmm}
 \title{Knit Print Method for pvargmm}
 \usage{
-knit_print.pvargmm(x, ...)
+\method{knit_print}{pvargmm}(x, ...)
 }
 \arguments{
 \item{x}{object}

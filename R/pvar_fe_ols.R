@@ -3,7 +3,7 @@
 #' @param dependent_vars Dependent variables
 #' @param lags Number of lags of dependent variables
 #' @param exog_vars Exogenous variables
-#' @param transformation Demeaining \code{"demean"}
+#' @param transformation Demeaning \code{"demean"}
 #' @param data Data set
 #' @param panel_identifier Vector of panel identifiers
 #'
@@ -19,9 +19,11 @@
 #'           transformation = "demean",
 #'           data = Cigar,
 #'           panel_identifier= c("state", "year"))
+#'           
+#' summary(ex1_feols)         
 
 pvarfeols <- function(dependent_vars,
-                           lags = 1,
+                           lags,
                            exog_vars,
                            transformation = c("demean"),
                            data,
@@ -138,16 +140,20 @@ pvarfeols <- function(dependent_vars,
 
   }
 
-  # If exogenous variables then set up the helper additional equation with parameter restrictions.
   if (!missing(exog_vars)) {
     dependent.vars <- c(paste0("demeaned_", dependent_vars))
-    lagged.vars <- c(paste0("demeaned_", "lag1_", dependent_vars),
+    
+    lagged.vars <- c()
+    for (l1 in 1:lags){
+      lagged.vars <- c(lagged.vars, paste0("demeaned_", "lag", l1,"_", dependent_vars))
+    }
+    
+    lagged.vars <- c(lagged.vars,
                      paste0("demeaned_", exog_vars))
 
   }
 
   Set_Vars <- na.exclude(Set_Vars)
-
 
   #n Anzahl der Individuen (Banken)
   n<-length(unique(Set_Vars$category))
@@ -183,12 +189,28 @@ pvarfeols <- function(dependent_vars,
   p_values_ols <- 2*pnorm(-abs(z_values_ols))
 
 
+  
+
+  # Input arguments ---------------------------------------------------------
+
+  inputargs <- list(dependent_vars = dependent_vars,
+                    lags = lags,
+                    transformation = transformation,
+                    Set_Vars = Set_Vars,
+                    panel_identifier = panel_identifier,
+                    nof_observations = nof_observations,
+                    obs_per_group_avg = obs_per_group_avg,
+                    obs_per_group_min = obs_per_group_min,
+                    obs_per_group_max = obs_per_group_max,
+                    nof_groups = nof_groups
+  )
+  
 
   # Results only OLS------------------------------------------------------------------
-  OLS.results <- list(coef =theta.hat.t, se = ols_variance_sde, pvalues = p_values_ols)
-    results <- list(OLS = OLS.results)
+  OLS.results <- list(coef =t(theta.hat.t), se = t(ols_variance_sde), pvalues = t(p_values_ols))
+  results <- append(list(OLS = OLS.results, residuals = ols.res), c(inputargs))
+  class(results) <- "pvarfeols"
   results
+  
 }
-
-
 
