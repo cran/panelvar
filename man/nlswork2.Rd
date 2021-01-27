@@ -4,7 +4,9 @@
 \name{nlswork2}
 \alias{nlswork2}
 \title{NLS Work 2 data}
-\format{An object of class \code{data.frame} with 16094 rows and 21 columns.}
+\format{
+An object of class \code{data.frame} with 16094 rows and 21 columns.
+}
 \usage{
 nlswork2
 }

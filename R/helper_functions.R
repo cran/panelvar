@@ -190,11 +190,12 @@ bootstrap_irf.pvargmm <- function(model,
         panel_identifier = c("category", "period"),
         steps = model$steps,
         system_instruments = model$system_instruments,
-        max_instr_dependent_vars = model$max_instr_predet_vars,
+        max_instr_dependent_vars = model$max_instr_dependent_vars,
         max_instr_predet_vars = model$max_instr_predet_vars,
-        min_instr_dependent_vars = model$min_instr_predet_vars,
+        min_instr_dependent_vars = model$min_instr_dependent_vars,
         min_instr_predet_vars = model$min_instr_predet_vars,
         collapse = model$collapse,
+        system_constant = model$system_constant,
         tol = model$tol,
         progressbar = FALSE
     )
@@ -442,7 +443,7 @@ Andrews_Lu_MMSC.pvargmm <- function(model, HQ_criterion = 2.1){
 #' @note 
 #' A \code{plot} method will be provided in future versions.
 #' @references
-#' Pfaff, B. (2008) VAR, SVAR and SVEC Models: Implementation Within R Package vars, \emph{Journal of Statistical Software} \bold{27}(4) \url{http://www.jstatsoft.org/v27/i04/}
+#' Pfaff, B. (2008) VAR, SVAR and SVEC Models: Implementation Within R Package vars, \emph{Journal of Statistical Software} \bold{27}(4) \url{https://www.jstatsoft.org/v27/i04/}
 #' @seealso 
 #' \code{\link{pvargmm}} for model estimaion
 #' 
@@ -538,6 +539,105 @@ fevd_orthogonal.pvargmm <- function(model, n.ahead=10){
           
           temp[l, m] <- temp[l, m] + (MA_Phi_P[[j]][l,m])^2
         
+        }
+      }
+    }
+    
+    temp <- temp / mse[i, ]
+    
+    for(j in 1 : length(model$dependent_vars)){
+      Omega[i, , j] <- temp[j, ]
+    }
+    
+  }
+  
+  # Prepare results:
+  result <- list()
+  for(i in 1 : length(model$dependent_vars)){
+    result[[i]] <- matrix(Omega[, , i], 
+                          nrow = n.ahead, 
+                          ncol = length(model$dependent_vars))
+    
+    colnames(result[[i]]) <- model$dependent_vars
+  }
+  names(result) <- model$dependent_vars
+  
+  return(result)
+  
+}
+
+#' @rdname fevd_orthogonal
+#' @export
+fevd_orthogonal.pvarfeols <- function(model, n.ahead=10){
+  
+  Phi = coef(model)
+  
+  # P <- t(chol(covm))
+  # MA Phi representation:
+  MA_Phi <- ma_phi_representation(Phi = Phi,
+                                  ma_approx_steps = n.ahead,
+                                  lags = model$lags)
+  
+  # Variance Co-Variance of the model:
+  Sigma_Hat1 <- vcov(model)
+  
+  
+  # Sigma.yh results:
+  
+  
+  Sigma.yh <- list()
+  Sigma.yh[[1]] <- Sigma_Hat1
+  
+  if (n.ahead > 1) {
+    for (i in 2:n.ahead) {
+      temp <- matrix(0, nrow = length(model$dependent_vars), 
+                     ncol = length(model$dependent_vars))
+      for (j in 2:i) {
+        temp <- temp + MA_Phi[[j]] %*% Sigma_Hat1 %*% t(MA_Phi[[j]])
+      }
+      Sigma.yh[[i]] <- temp + Sigma.yh[[1]]
+    }
+  }
+  
+  
+  # Set up Psi == MA_Phi_P
+  
+  P <- chol(Sigma_Hat1)
+  MA_Phi_P <- list()
+  
+  # Calculate 2.3.27 in Luetkepohl p. 58.
+  MA_Phi_P[[1]] <- t(P)
+  
+  if (n.ahead > 1){
+    for (i0 in 2:n.ahead){
+      
+      MA_Phi_P[[i0]] <- MA_Phi[[i0]] %*% t(P)
+      
+    }
+  }
+  
+  
+  # Set up Psi == MA_Phi_P
+  
+  
+  mse <- matrix(NA, nrow = n.ahead, ncol = length(model$dependent_vars))
+  Omega <- array(0, dim = c(n.ahead, length(model$dependent_vars), 
+                            length(model$dependent_vars)))
+  
+  for(i in 1 : n.ahead){
+    
+    mse[i, ] <- diag(Sigma.yh[[i]])
+    
+    temp <- matrix(0, length(model$dependent_vars), length(model$dependent_vars))
+    
+    for(l in 1 : length(model$dependent_vars)){
+      
+      for(m in 1 : length(model$dependent_vars)){
+        
+        for(j in 1 : i){
+          
+          temp[l, m] <- temp[l, m] + (MA_Phi_P[[j]][l,m])^2
+          
         }
       }
     }

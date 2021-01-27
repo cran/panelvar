@@ -4,8 +4,14 @@
 \alias{pvarfeols}
 \title{Fixed Effects Estimator for PVAR Model}
 \usage{
-pvarfeols(dependent_vars, lags, exog_vars, transformation = c("demean"),
-  data, panel_identifier = c(1, 2))
+pvarfeols(
+  dependent_vars,
+  lags,
+  exog_vars,
+  transformation = c("demean"),
+  data,
+  panel_identifier = c(1, 2)
+)
 }
 \arguments{
 \item{dependent_vars}{Dependent variables}

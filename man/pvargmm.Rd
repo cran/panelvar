@@ -4,13 +4,27 @@
 \alias{pvargmm}
 \title{GMM Estimation of Panel VAR Models}
 \usage{
-pvargmm(dependent_vars, lags, predet_vars, exog_vars,
-  transformation = "fd", data, panel_identifier = c(1, 2), steps,
-  system_instruments = FALSE, system_constant = TRUE,
-  pca_instruments = FALSE, pca_eigenvalue = 1,
-  max_instr_dependent_vars, max_instr_predet_vars,
-  min_instr_dependent_vars = 2L, min_instr_predet_vars = 1L,
-  collapse = FALSE, tol = 1e-09, progressbar = TRUE)
+pvargmm(
+  dependent_vars,
+  lags,
+  predet_vars,
+  exog_vars,
+  transformation = "fd",
+  data,
+  panel_identifier = c(1, 2),
+  steps,
+  system_instruments = FALSE,
+  system_constant = TRUE,
+  pca_instruments = FALSE,
+  pca_eigenvalue = 1,
+  max_instr_dependent_vars,
+  max_instr_predet_vars,
+  min_instr_dependent_vars = 2L,
+  min_instr_predet_vars = 1L,
+  collapse = FALSE,
+  tol = 1e-09,
+  progressbar = TRUE
+)
 }
 \arguments{
 \item{dependent_vars}{Dependent variables}
@@ -128,9 +142,9 @@ Blundell R., Bond S. (1998). Initial Conditions and Moment Restrictions in Dynam
 
 Holtz-Eakin D., Newey W., Rosen H.S. (1988) Estimating Vector Autoregressions with Panel Data, \emph{Econometrica}, \bold{56}(6), 1371--1395, \doi{10.2307/1913103}
 
-Roodman, D. (2009) How to Do xtabond2: An Introduction to Difference and System GMM in Stata \emph{The Stata Journal}, \bold{9}(1), 86--136, \url{http://www.stata-journal.com/article.html?article=st0159}
+Roodman, D. (2009) How to Do xtabond2: An Introduction to Difference and System GMM in Stata \emph{The Stata Journal}, \bold{9}(1), 86--136, \url{https://www.stata-journal.com/article.html?article=st0159}
 
-Sigmund, M., Ferstl, R. (2017) Panel Vector Autoregression in R with the Package panelvar \emph{Available at SSRN:} \url{https://ssrn.com/abstract=2896087}
+Sigmund, M., Ferstl, R. (2017) Panel Vector Autoregression in R with the Package panelvar \emph{Available at SSRN:} \url{https://www.ssrn.com/abstract=2896087}
 \doi{10.2139/ssrn.2896087}
 }
 \seealso{

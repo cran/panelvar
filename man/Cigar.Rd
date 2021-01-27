@@ -4,7 +4,8 @@
 \name{Cigar}
 \alias{Cigar}
 \title{Cigar data}
-\format{The variables are:
+\format{
+The variables are:
 \describe{
   \item{state}{State abbreviation}
   \item{year}{Year}
@@ -18,9 +19,10 @@
 
 }
 
-All variables all also available as logs.}
+All variables all also available as logs.
+}
 \source{
-\url{http://www.wiley.com/legacy/wileychi/baltagi/supp/Cigar.txt}
+\url{https://www.wiley.com/legacy/wileychi/baltagi/supp/Cigar.txt}
 }
 \usage{
 Cigar
@@ -29,11 +31,11 @@ Cigar
 This panel data set consists of 46 U.S. States over the period 1963-1992.
 }
 \references{
-Baltagi, B.H. and D. Levin (1992) "Cigarette taxation: raising revenues and reducing consumption", \emph{Structural Change and Economic Dynamics}, \strong{3}(2), 321-335, \href{http://dx.doi.org/10.1016/0954-349X(92)90010-4}{doi:10.1016/0954-349X(92)90010-4}.
+Baltagi, B.H. and D. Levin (1992) "Cigarette taxation: raising revenues and reducing consumption", \emph{Structural Change and Economic Dynamics}, \strong{3}(2), 321-335, \doi{10.1016/0954-349X(92)90010-4}.
 
-Baltagi, B.H., J.M. Griffin and W. Xiong (2000) "To pool or not to pool: homogeneous versus heterogeneous estimators applied to cigarette demand", \emph{Review of Economics and Statistics}, \strong{82}(1), 117-126, \href{http://dx.doi.org/10.1162/003465300558551}{doi:10.1162/003465300558551}.
+Baltagi, B.H., J.M. Griffin and W. Xiong (2000) "To pool or not to pool: homogeneous versus heterogeneous estimators applied to cigarette demand", \emph{Review of Economics and Statistics}, \strong{82}(1), 117-126, \doi{10.1162/003465300558551}.
 
-Baltagi, B.H. (2013) "Econometric analysis of panel data", 5th edition, \emph{John Wiley and Sons}, \url{http://www.wiley.com/WileyCDA/WileyTitle/productCd-EHEP003191.html}
+Baltagi, B.H. (2013) "Econometric analysis of panel data", 5th edition, \emph{John Wiley and Sons}
 Cigar
 }
 \keyword{datasets}

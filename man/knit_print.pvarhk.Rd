@@ -4,7 +4,7 @@
 \alias{knit_print.pvarhk}
 \title{Knit Print Method for pvarhk}
 \usage{
-\method{knit_print}{pvarhk}(x, ...)
+knit_print.pvarhk(x, ...)
 }
 \arguments{
 \item{x}{object}

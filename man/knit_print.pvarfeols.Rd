@@ -4,7 +4,7 @@
 \alias{knit_print.pvarfeols}
 \title{Knit Print Method for pvarfeols}
 \usage{
-\method{knit_print}{pvarfeols}(x, ...)
+knit_print.pvarfeols(x, ...)
 }
 \arguments{
 \item{x}{object}

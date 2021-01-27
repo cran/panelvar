@@ -4,7 +4,8 @@
 \name{Dahlberg}
 \alias{Dahlberg}
 \title{Swedish municipalities data}
-\format{The variables are:
+\format{
+The variables are:
 \describe{
   \item{id}{ID number for municipality}
   \item{year}{Year}
@@ -22,7 +23,8 @@ consumption expenditures at current prices by total local consumption
 expenditures at fixed (1985) prices.
 
 The data are gathered by Statistics Sweden and obtained from
-Financial Accounts for the Municipalities (Kommunernas Finanser).}
+Financial Accounts for the Municipalities (Kommunernas Finanser).
+}
 \source{
 \url{http://qed.econ.queensu.ca/jae/2000-v15.4/dahlberg-johansson/}
 }

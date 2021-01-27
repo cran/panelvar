@@ -47,8 +47,8 @@
 #'   \item{yr1976 - yr1984}{Time dummies}
 #' }
 #'
-#' @source \url{http://www.stata-press.com/data/r13/abdata.dta}
-#' @references Arellano, M. and Bond, S. (1991) "Some tests of specification for panel data: Monte Carlo evidence and an application to employment equations", \emph{The Review of Economic Studies}, \strong{58}(2), 227-297, \href{http://dx.doi.org/10.2307/2297968}{doi: 10.2307/2297968}
+#' @source \url{https://www.stata-press.com/data/r13/abdata.dta}
+#' @references Arellano, M. and Bond, S. (1991) "Some tests of specification for panel data: Monte Carlo evidence and an application to employment equations", \emph{The Review of Economic Studies}, \strong{58}(2), 227-297, \doi{10.2307/2297968}
 "abdata"
 
 #' Cigar data
@@ -71,13 +71,14 @@
 #'
 #' All variables all also available as logs.
 #'
-#' @source \url{http://www.wiley.com/legacy/wileychi/baltagi/supp/Cigar.txt}
+#' @source \url{https://www.wiley.com/legacy/wileychi/baltagi/supp/Cigar.txt}
 #' @references
-#' Baltagi, B.H. and D. Levin (1992) "Cigarette taxation: raising revenues and reducing consumption", \emph{Structural Change and Economic Dynamics}, \strong{3}(2), 321-335, \href{http://dx.doi.org/10.1016/0954-349X(92)90010-4}{doi:10.1016/0954-349X(92)90010-4}.
+#' Baltagi, B.H. and D. Levin (1992) "Cigarette taxation: raising revenues and reducing consumption", \emph{Structural Change and Economic Dynamics}, \strong{3}(2), 321-335, \doi{10.1016/0954-349X(92)90010-4}.
 #'
-#' Baltagi, B.H., J.M. Griffin and W. Xiong (2000) "To pool or not to pool: homogeneous versus heterogeneous estimators applied to cigarette demand", \emph{Review of Economics and Statistics}, \strong{82}(1), 117-126, \href{http://dx.doi.org/10.1162/003465300558551}{doi:10.1162/003465300558551}.
+#' Baltagi, B.H., J.M. Griffin and W. Xiong (2000) "To pool or not to pool: homogeneous versus heterogeneous estimators applied to cigarette demand", \emph{Review of Economics and Statistics}, \strong{82}(1), 117-126, \doi{10.1162/003465300558551}.
 #'
-#' Baltagi, B.H. (2013) "Econometric analysis of panel data", 5th edition, \emph{John Wiley and Sons}, \url{http://www.wiley.com/WileyCDA/WileyTitle/productCd-EHEP003191.html}
+#' Baltagi, B.H. (2013) "Econometric analysis of panel data", 5th edition, \emph{John Wiley and Sons}
+ 
 
 #' Cigar
 "Cigar"

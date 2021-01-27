@@ -7,8 +7,13 @@
 \usage{
 bootstrap_irf(model, typeof_irf, n.ahead, nof_Nstar_draws, confidence.band)
 
-\method{bootstrap_irf}{pvargmm}(model, typeof_irf = c("OIRF", "GIRF"),
-  n.ahead, nof_Nstar_draws, confidence.band = 0.95)
+\method{bootstrap_irf}{pvargmm}(
+  model,
+  typeof_irf = c("OIRF", "GIRF"),
+  n.ahead,
+  nof_Nstar_draws,
+  confidence.band = 0.95
+)
 }
 \arguments{
 \item{model}{A PVAR model}

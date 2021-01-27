@@ -4,7 +4,9 @@
 \name{ex1_dahlberg_data_bs}
 \alias{ex1_dahlberg_data_bs}
 \title{Dahlberg bootstrap results example 1}
-\format{An object of class \code{list} of length 4.}
+\format{
+An object of class \code{list} of length 4.
+}
 \usage{
 ex1_dahlberg_data_bs
 }

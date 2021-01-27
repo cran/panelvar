@@ -3,11 +3,14 @@
 \name{fevd_orthogonal}
 \alias{fevd_orthogonal}
 \alias{fevd_orthogonal.pvargmm}
+\alias{fevd_orthogonal.pvarfeols}
 \title{Forcast Error Variance Decomposition for PVAR}
 \usage{
 fevd_orthogonal(model, n.ahead = 10)
 
 \method{fevd_orthogonal}{pvargmm}(model, n.ahead = 10)
+
+\method{fevd_orthogonal}{pvarfeols}(model, n.ahead = 10)
 }
 \arguments{
 \item{model}{A PVAR model}
@@ -32,7 +35,7 @@ fevd_orthogonal(ex1_dahlberg_data, n.ahead = 8)
 
 }
 \references{
-Pfaff, B. (2008) VAR, SVAR and SVEC Models: Implementation Within R Package vars, \emph{Journal of Statistical Software} \bold{27}(4) \url{http://www.jstatsoft.org/v27/i04/}
+Pfaff, B. (2008) VAR, SVAR and SVEC Models: Implementation Within R Package vars, \emph{Journal of Statistical Software} \bold{27}(4) \url{https://www.jstatsoft.org/v27/i04/}
 }
 \seealso{
 \code{\link{pvargmm}} for model estimaion

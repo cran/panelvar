@@ -4,7 +4,8 @@
 \name{abdata}
 \alias{abdata}
 \title{Employment UK data}
-\format{The variables are:
+\format{
+The variables are:
 \describe{
   \item{c1}{Record ID}
   \item{ind}{Firm index}
@@ -19,9 +20,10 @@
   \item{id}{ID}
   \item{nL1, nL2, wL1, kL1, kL2, ysL1, ysL2}{Lags of log variables}
   \item{yr1976 - yr1984}{Time dummies}
-}}
+}
+}
 \source{
-\url{http://www.stata-press.com/data/r13/abdata.dta}
+\url{https://www.stata-press.com/data/r13/abdata.dta}
 }
 \usage{
 abdata
@@ -30,6 +32,6 @@ abdata
 This data set contains labor demand data from a panel of firms in the United Kingdom. The panel is unlanced.
 }
 \references{
-Arellano, M. and Bond, S. (1991) "Some tests of specification for panel data: Monte Carlo evidence and an application to employment equations", \emph{The Review of Economic Studies}, \strong{58}(2), 227-297, \href{http://dx.doi.org/10.2307/2297968}{doi: 10.2307/2297968}
+Arellano, M. and Bond, S. (1991) "Some tests of specification for panel data: Monte Carlo evidence and an application to employment equations", \emph{The Review of Economic Studies}, \strong{58}(2), 227-297, \doi{10.2307/2297968}
 }
 \keyword{datasets}

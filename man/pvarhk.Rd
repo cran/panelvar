@@ -4,8 +4,13 @@
 \alias{pvarhk}
 \title{Hahn Kuehrsteiner Estimator for PVAR Model}
 \usage{
-pvarhk(dependent_vars, exog_vars, transformation = c("demean"), data,
-  panel_identifier = c(1, 2))
+pvarhk(
+  dependent_vars,
+  exog_vars,
+  transformation = c("demean"),
+  data,
+  panel_identifier = c(1, 2)
+)
 }
 \arguments{
 \item{dependent_vars}{Dependent variables}

@@ -4,7 +4,9 @@
 \name{ex3_abdata}
 \alias{ex3_abdata}
 \title{Example results for Employment UK data}
-\format{An object of class \code{pvargmm} of length 36.}
+\format{
+An object of class \code{pvargmm} of length 36.
+}
 \usage{
 ex3_abdata
 }

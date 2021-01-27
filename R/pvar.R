@@ -58,9 +58,9 @@
 #'
 #' Holtz-Eakin D., Newey W., Rosen H.S. (1988) Estimating Vector Autoregressions with Panel Data, \emph{Econometrica}, \bold{56}(6), 1371--1395, \doi{10.2307/1913103}
 #'
-#' Roodman, D. (2009) How to Do xtabond2: An Introduction to Difference and System GMM in Stata \emph{The Stata Journal}, \bold{9}(1), 86--136, \url{http://www.stata-journal.com/article.html?article=st0159}
+#' Roodman, D. (2009) How to Do xtabond2: An Introduction to Difference and System GMM in Stata \emph{The Stata Journal}, \bold{9}(1), 86--136, \url{https://www.stata-journal.com/article.html?article=st0159}
 #' 
-#' Sigmund, M., Ferstl, R. (2017) Panel Vector Autoregression in R with the Package panelvar \emph{Available at SSRN:} \url{https://ssrn.com/abstract=2896087}
+#' Sigmund, M., Ferstl, R. (2017) Panel Vector Autoregression in R with the Package panelvar \emph{Available at SSRN:} \url{https://www.ssrn.com/abstract=2896087}
 #' \doi{10.2139/ssrn.2896087}
 #' 
 #' @seealso
@@ -242,9 +242,9 @@ pvargmm <-
     nof_observations <- dim(na.exclude(Set_Vars))[1]
     data_panel_identifier <- data[panel_identifier]
     
-    obs_per_group_avg <- mean(table(na.exclude(Set_Vars)$category), na.rm = TRUE)
-    obs_per_group_min <- min(table(na.exclude(Set_Vars)$category), na.rm = TRUE)
-    obs_per_group_max <- max(table(na.exclude(Set_Vars)$category), na.rm = TRUE)
+    obs_per_group_avg <- mean(table(factor(na.exclude(Set_Vars)$category)), na.rm = TRUE)
+    obs_per_group_min <- min(table(factor(na.exclude(Set_Vars)$category)), na.rm = TRUE)
+    obs_per_group_max <- max(table(factor(na.exclude(Set_Vars)$category)), na.rm = TRUE)
     
     nof_groups <- length(unique(data_panel_identifier[,1]))
     # -------------------------------------------------------------------------
