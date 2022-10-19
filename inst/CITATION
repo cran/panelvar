@@ -3,7 +3,7 @@ bibentry("Article",
          author       = personList(as.person("Michael Sigmund"),
                                    as.person("Robert Ferstl")),
          journal      = "The Quarterly Review of Economics and Finance",
-         year         = "2019",
+         year         = "2021",
          doi          = "10.1016/j.qref.2019.01.001",
          
          header       = "To cite panelvar in publications use:"

@@ -152,7 +152,8 @@ pvarfeols <- function(dependent_vars,
                      paste0("demeaned_", exog_vars))
 
   }
-
+  
+  Set_Vars_with_NAs <- Set_Vars
   Set_Vars <- na.exclude(Set_Vars)
 
   #n Anzahl der Individuen (Banken)
@@ -197,6 +198,7 @@ pvarfeols <- function(dependent_vars,
                     lags = lags,
                     transformation = transformation,
                     Set_Vars = Set_Vars,
+                    Set_Vars_with_NAs = Set_Vars_with_NAs,
                     panel_identifier = panel_identifier,
                     nof_observations = nof_observations,
                     obs_per_group_avg = obs_per_group_avg,

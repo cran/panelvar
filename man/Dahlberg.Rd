@@ -36,6 +36,6 @@ The panel data set consists of 265 Swedish municipalities and
 covers 9 years (1979-1987).
 }
 \references{
-M. Dahlberg and E. Johansson (2000) "An examination of the dynamic behavior of local governments using GMM bootstrapping methods", \emph{Journal of Applied Econometrics}, \strong{15}(4), 401-416, \url{http://www.jstor.org/stable/2678589}.
+M. Dahlberg and E. Johansson (2000) "An examination of the dynamic behavior of local governments using GMM bootstrapping methods", \emph{Journal of Applied Econometrics}, \strong{15}(4), 401-416, \url{https://www.jstor.org/stable/2678589}.
 }
 \keyword{datasets}

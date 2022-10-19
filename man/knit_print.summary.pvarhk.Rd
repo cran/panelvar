@@ -4,7 +4,7 @@
 \alias{knit_print.summary.pvarhk}
 \title{Knit Print summary Method}
 \usage{
-knit_print.summary.pvarhk(x, ...)
+\method{knit_print}{summary.pvarhk}(x, ...)
 }
 \arguments{
 \item{x}{object}

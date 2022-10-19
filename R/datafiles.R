@@ -23,7 +23,7 @@
 #' The data are gathered by Statistics Sweden and obtained from
 #' Financial Accounts for the Municipalities (Kommunernas Finanser).
 #' @source \url{http://qed.econ.queensu.ca/jae/2000-v15.4/dahlberg-johansson/}
-#' @references M. Dahlberg and E. Johansson (2000) "An examination of the dynamic behavior of local governments using GMM bootstrapping methods", \emph{Journal of Applied Econometrics}, \strong{15}(4), 401-416, \url{http://www.jstor.org/stable/2678589}.
+#' @references M. Dahlberg and E. Johansson (2000) "An examination of the dynamic behavior of local governments using GMM bootstrapping methods", \emph{Journal of Applied Econometrics}, \strong{15}(4), 401-416, \url{https://www.jstor.org/stable/2678589}.
 "Dahlberg"
 
 #' Employment UK data

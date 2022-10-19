@@ -31,11 +31,11 @@
 #' Estimates a panel vector autoregressive (PVAR) model with fixed effects.
 #' @return A \code{pvargmm} object containing the estimation results.
 #' @details
-#' The first vector autoregressive panel model (PVAR) was introduced by Holtz-Eakin et al. (1988). Binder et al. (2005) extend their equation-by-equation estimator for a PVAR model with only endogenous variables that are lagged by one period. We further improve this model in Sigmund and Ferstl (2017) to allow for \eqn{p} lags of \eqn{m} endogenous variables, \eqn{k} predetermined variables and \eqn{n} strictly exogenous variables.
+#' The first vector autoregressive panel model (PVAR) was introduced by Holtz-Eakin et al. (1988). Binder et al. (2005) extend their equation-by-equation estimator for a PVAR model with only endogenous variables that are lagged by one period. We further improve this model in Sigmund and Ferstl (2021) to allow for \eqn{p} lags of \eqn{m} endogenous variables, \eqn{k} predetermined variables and \eqn{n} strictly exogenous variables.
 #' 
 #' Therefore, we consider the following stationary PVAR with fixed effects.
 #' 
-#' 	\ifelse{html}{\out{<center><b>y</b><sub><i>i,t</i></sub> = <b>&mu;</b><sub><i>i</i></sub> + &sum;<sub><i>l=1</i></sub><sup>p</sup><b>A</b><sub><i>l</i></sub><b>y</b><sub><i>i,t-l</i></sub> + <b>B</b><b>x</b><sub><i>i,t</i></sub> + <b>C</b><b>s</b><sub><i>i,t</i></sub> + <b>&epsilon;</b><sub><i>i,t</i></sub></center>}}{\deqn{\mathbf{y}_{i,t} = \mathbf{\mu}_i + \sum_{l = 1}^{p}\mathbf{A}_l\mathbf{y}_{i,t-l} + \mathbf{B}\mathbf{x}_{i, t} + \mathbf{C}\mathbf{s}_{i,t} + \mathbf{\epsilon}_{i,t}}}
+#' 	\ifelse{html}{\out{<b>y</b><sub><i>i,t</i></sub> = <b>&mu;</b><sub><i>i</i></sub> + &sum;<sub><i>l=1</i></sub><sup>p</sup><b>A</b><sub><i>l</i></sub><b>y</b><sub><i>i,t-l</i></sub> + <b>B</b><b>x</b><sub><i>i,t</i></sub> + <b>C</b><b>s</b><sub><i>i,t</i></sub> + <b>&epsilon;</b><sub><i>i,t</i></sub><p></p>}}{\deqn{\mathbf{y}_{i,t} = \mathbf{\mu}_i + \sum_{l = 1}^{p}\mathbf{A}_l\mathbf{y}_{i,t-l} + \mathbf{B}\mathbf{x}_{i, t} + \mathbf{C}\mathbf{s}_{i,t} + \mathbf{\epsilon}_{i,t}}}
 #'
 #'
 #' \ifelse{html}{\out{Let <b>y</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>m</i></sup> be an <i>m&times;1</i> vector of <b>endogenous variables</b> for the <i>i</i>th cross-sectional unit at time <i>t</i>. Let <b>y</b><sub><i>i,t-l</i></sub> &isin; &real;<sup><i>m</i></sup> be an <i>m&times;1</i> vector of <b>lagged endogenous variables</b>. Let <b>x</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>k</i></sup> be an <i>k&times;1</i> vector of <b>predetermined variables</b> that are potentially correlated with past errors. Let <b>s</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>n</i></sup> be an <i>n&times;1</i> vector of <b>strictly exogenous variables</b> that neither depend on <b>&epsilon;</b><sub><i>i,t</i></sub> nor on <b>&epsilon;</b><sub><i>i,t-s</i></sub> for <i>s = 1,&hellip;,T</i>. The idiosyncratic error vector <b>&epsilon;</b><sub><i>i,t</i></sub> &isin; &real;<sup><i>m</i></sup> is assumed to be well-behaved and independent from both the regressors <b>x</b><sub><i>i,t</i></sub>  and <b>s</b><sub><i>i,t</i></sub> and the individual error component <b>&mu;</b><sub><i>i</i></sub>. Stationarity requires that all unit roots of the PVAR model fall inside the unit circle, which therefore places some constraints on the <b>fixed effect</b> <b>&mu;</b><sub><i>i</i></sub>. The cross section <i>i</i> and the time section <i>t</i>  are defined as follows: <i>i = 1,&hellip;,N</i> and <i>t = 1,&hellip;T</i>. In this specification we assume parameter homogeneity for <b>A</b><sub><i>l</i></sub> <i>(m&times;m)</i>, <b>B</b> <i>(m&times;k)</i> and <b>C</b> <i>(m&times;n)</i> for all <i>i</i>.}}{\eqn{\mathbf{I}_m} denotes an \eqn{m\times m} identity matrix. Let \eqn{\mathbf{y}_{i,t} \in \R^m} be an \eqn{m\times 1} vector of endogenous variables for the \eqn{i}th cross-sectional unit at time \eqn{t}. Let \eqn{\mathbf{y}_{i,t-l} \in \R^m} be an \eqn{m\times 1} vector of lagged endogenous variables. Let \eqn{\mathbf{x}_{i,t} \in \R^k} be an \eqn{k \times 1} vector of predetermined variables that are potentially correlated with past errors. Let \eqn{\mathbf{s}_{i,t} \in \R^n} be an \eqn{n \times 1} vector of strictly exogenous variables that neither depend on \eqn{\epsilon_t} nor on \eqn{\epsilon_{t-s}} for \eqn{s = 1,\dots,T}. The idiosyncratic error vector \eqn{\mathbf{\epsilon}_{i,t} \in \R^m} is assumed to be well-behaved and independent from both the regressors \eqn{\mathbf{x}_{i,t}} and \eqn{\mathbf{s}_{i,t}} and the individual error component \eqn{\mathbf{\mu}_i}. Stationarity requires that all unit roots of the PVAR model fall inside the unit circle, which therefore places some constraints on the fixed effect \eqn{\mathbf{\mu}_i}. The cross section \eqn{i} and the time section \eqn{t} are defined as follows: \eqn{i = 1,2,...,N} and \eqn{t = 1,2,...,T}. In this specification we assume parameter homogeneity for \eqn{\mathbf{A}_l (m\times m)}, \eqn{\mathbf{B} (m \times k)} and \eqn{\mathbf{C} (m\times n)} for all \eqn{i}.}
@@ -45,7 +45,7 @@
 #' 
 #' First difference and system GMM estimators for single equation dynamic panel data models have been implemented in the STATA package \code{xtabond2} by Roodman (2009) and some of the features are also available in the R package \pkg{plm}.
 #' 
-#' For more technical details on the estimation, please refer to our working paper Sigmund and Ferstl (2017).
+#' For more technical details on the estimation, please refer to our paper Sigmund and Ferstl (2021).
 #' 
 #' There we define the first difference moment conditions (see Holtz-Eakin et al., 1988; Arellano and Bond, 1991), formalize the ideas to reduce the number of moment conditions by linear transformations of the instrument matrix and define the one- and two-step GMM estimator. Furthermore, we setup the system moment conditions as defined in Blundell and Bond (1998) and present the extended GMM estimator. In addition to the GMM-estimators we contribute to the literature by providing specification tests (Hansen overidentification test, lag selection criterion and stability test of the PVAR polynomial) and classical structural analysis for PVAR models such as orthogonal and generalized impulse response functions, bootstrapped confidence intervals for impulse response analysis and forecast error variance decompositions. Finally, we implement the first difference and the forward orthogonal transformation to remove the fixed effects.
 #' 
@@ -60,8 +60,7 @@
 #'
 #' Roodman, D. (2009) How to Do xtabond2: An Introduction to Difference and System GMM in Stata \emph{The Stata Journal}, \bold{9}(1), 86--136, \url{https://www.stata-journal.com/article.html?article=st0159}
 #' 
-#' Sigmund, M., Ferstl, R. (2017) Panel Vector Autoregression in R with the Package panelvar \emph{Available at SSRN:} \url{https://www.ssrn.com/abstract=2896087}
-#' \doi{10.2139/ssrn.2896087}
+#' Sigmund, M., Ferstl, R. (2021) Panel Vector Autoregression in R with the Package panelvar \emph{The Quarterly Review of Economics and Finance} \doi{10.1016/j.qref.2019.01.001}
 #' 
 #' @seealso
 #' \code{\link{stability}} for stability tests
@@ -195,7 +194,8 @@ pvargmm <-
     Set_Vars <- Set_Vars[order(Set_Vars$category, Set_Vars$period,decreasing = FALSE),]
     Set_Vars$category <- factor(Set_Vars$category)
     Set_Vars$period <- factor(Set_Vars$period)
-
+    Set_Vars_with_NAs <- Set_Vars
+    
     # Add lags of dependent variables -----------------------------------------
     # - xtabond sets the lagged values to NA if the non-lagged values is NA
     #   in the last period of a specific variable.
@@ -246,7 +246,9 @@ pvargmm <-
     obs_per_group_min <- min(table(factor(na.exclude(Set_Vars)$category)), na.rm = TRUE)
     obs_per_group_max <- max(table(factor(na.exclude(Set_Vars)$category)), na.rm = TRUE)
     
-    nof_groups <- length(unique(data_panel_identifier[,1]))
+    nof_groups <- length(unique(na.exclude(Set_Vars)$category))
+    
+    
     # -------------------------------------------------------------------------
 
     # only for System fod instruments
@@ -1087,6 +1089,7 @@ pvargmm <-
                       system_constant = system_constant,
                       collapse = collapse,
                       Set_Vars = Set_Vars,
+                      Set_Vars_with_NAs = Set_Vars_with_NAs,
                       panel_identifier = panel_identifier,
                       max_instr_dependent_vars = max_instr_dependent_vars,
                       max_instr_predet_vars = max_instr_predet_vars,

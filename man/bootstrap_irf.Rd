@@ -3,16 +3,34 @@
 \name{bootstrap_irf}
 \alias{bootstrap_irf}
 \alias{bootstrap_irf.pvargmm}
+\alias{bootstrap_irf.pvarfeols}
 \title{Empirical estimation of PVAR Impulse Response Confidence Bands}
 \usage{
-bootstrap_irf(model, typeof_irf, n.ahead, nof_Nstar_draws, confidence.band)
+bootstrap_irf(
+  model,
+  typeof_irf,
+  n.ahead,
+  nof_Nstar_draws,
+  confidence.band,
+  mc.cores
+)
 
 \method{bootstrap_irf}{pvargmm}(
   model,
   typeof_irf = c("OIRF", "GIRF"),
   n.ahead,
   nof_Nstar_draws,
-  confidence.band = 0.95
+  confidence.band = 0.95,
+  mc.cores = getOption("mc.cores", 2L)
+)
+
+\method{bootstrap_irf}{pvarfeols}(
+  model,
+  typeof_irf = c("OIRF", "GIRF"),
+  n.ahead,
+  nof_Nstar_draws,
+  confidence.band = 0.95,
+  mc.cores = getOption("mc.cores", 2L)
 )
 }
 \arguments{
@@ -25,9 +43,11 @@ bootstrap_irf(model, typeof_irf, n.ahead, nof_Nstar_draws, confidence.band)
 \item{nof_Nstar_draws}{Number of draws}
 
 \item{confidence.band}{Confidence band}
+
+\item{mc.cores}{Number of cores to use}
 }
 \description{
-Uses blockwise sampling of individuals (bootstrapping)
+Uses blockwise sampling of individuals (bootstrapping).
 }
 \examples{
 \dontrun{
@@ -35,7 +55,7 @@ data("ex1_dahlbergdata")
 bootstrap_irf(ex1_dahlberg_data, 
               typeof_irf = "OIRF", 
               n.ahead = 12, 
-              nof_Nstar_draws = 2, 
+              nof_Nstar_draws = 100, 
               confidence.band = 0.95)
 }
 }

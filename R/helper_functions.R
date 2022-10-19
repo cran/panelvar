@@ -85,20 +85,21 @@ ma_phi_representation <- function(Phi, ma_approx_steps, lags){
 #' @param n.ahead n ahead steps
 #' @param nof_Nstar_draws Number of draws
 #' @param confidence.band Confidence band
+#' @param mc.cores Number of cores to use
 #' @export
 #' @description 
-#' Uses blockwise sampling of individuals (bootstrapping)
+#' Uses blockwise sampling of individuals (bootstrapping).
 #' @examples 
 #' \dontrun{
 #' data("ex1_dahlbergdata")
 #' bootstrap_irf(ex1_dahlberg_data, 
 #'               typeof_irf = "OIRF", 
 #'               n.ahead = 12, 
-#'               nof_Nstar_draws = 2, 
+#'               nof_Nstar_draws = 100, 
 #'               confidence.band = 0.95)
 #' }
 
-bootstrap_irf <- function(model, typeof_irf, n.ahead, nof_Nstar_draws, confidence.band) UseMethod("bootstrap_irf")
+bootstrap_irf <- function(model, typeof_irf, n.ahead, nof_Nstar_draws, confidence.band, mc.cores) UseMethod("bootstrap_irf")
 
 #' @rdname bootstrap_irf
 #' @export
@@ -106,7 +107,8 @@ bootstrap_irf.pvargmm <- function(model,
                                   typeof_irf = c("OIRF", "GIRF"),
                                     n.ahead,
                                     nof_Nstar_draws,
-                                    confidence.band = 0.95
+                                    confidence.band = 0.95,
+                                  mc.cores = getOption("mc.cores", 2L)
                                     ){
 
   #example:
@@ -130,7 +132,7 @@ bootstrap_irf.pvargmm <- function(model,
 
   # Fix the input argument as a lot of models will be estimated.
 
-  Data_initial <- model$Set_Vars
+  Data_initial <- model$Set_Vars_with_NAs
 
   # optionales Argument
   size_Nstar_draws <- length(model$instruments)
@@ -151,14 +153,17 @@ bootstrap_irf.pvargmm <- function(model,
   }
 
   # Set up the model reestimation:
-  pb <-
-    progress::progress_bar$new(format = "Bootstrapping: [:bar] Iteration :current of :total" ,
-                               clear = TRUE,
-                               total = nof_Nstar_draws)
-  pvar_irf            <- list()
-  for (i0 in 1:nof_Nstar_draws){
+  # pb <-
+  #   progress::progress_bar$new(format = "Bootstrapping: [:bar] Iteration :current of :total" ,
+  #                              clear = TRUE,
+  #                              total = nof_Nstar_draws)
+  # pvar_irf            <- list()
+  # for (i0 in 1:nof_Nstar_draws){
 
-    pb$tick()
+    #pb$tick()
+  #browser()
+  pvar_irf <- 
+    parallel::mclapply(1:nof_Nstar_draws, function(i0) {  
     # Set up the sampled data for each nof_Nstar_draws estimations
     #data_resampled <- Data_initial[Data_initial[, model$panel_identifier[1]] ==  Nstar_draws[[i0]][1],]
     data_resampled <- Data_initial[Data_initial[, "category"] ==  Nstar_draws[[i0]][1],]
@@ -213,18 +218,18 @@ bootstrap_irf.pvargmm <- function(model,
     #Residuals_resampled[[i0]] <- do.call(rbind,pvar_zwischen$residuals)
 
     if (typeof_irf == c("OIRF")){
-      pvar_irf[[i0]] <- oirf(model = pvar_zwischen,
+       oirf(model = pvar_zwischen,
                              n.ahead = n.ahead)
     }
 
     if (typeof_irf == c("GIRF")){
-      pvar_irf[[i0]] <- girf(model = pvar_zwischen,
+      girf(model = pvar_zwischen,
                              n.ahead = n.ahead,
                              ma_approx_steps = n.ahead)
     }
 
-  }
-
+    }, mc.cores = mc.cores)
+  
   # Old part from vars package:
   # definite a mistake here:
   #lower <- ci / 2
@@ -298,6 +303,175 @@ bootstrap_irf.pvargmm <- function(model,
 #' 
 #' 
 Andrews_Lu_MMSC <- function(model, HQ_criterion = 2.1) UseMethod("Andrews_Lu_MMSC")
+
+#' @rdname bootstrap_irf
+#' @export
+
+bootstrap_irf.pvarfeols <- function(model,
+                                    typeof_irf = c("OIRF", "GIRF"),
+                                    n.ahead,
+                                    nof_Nstar_draws,
+                                    confidence.band = 0.95,
+                                    mc.cores = getOption("mc.cores", 2L)
+){
+  
+  #example:
+  # model <- ex1_feols
+  # data  <- Cigar
+  # typeof_irf = c("OIRF")
+  # nof_Nstar_draws <- 1
+  # n.ahead <- 8
+  # confidence.band <- 0.95
+  
+  
+  # Start First Block: Set up parameters of the model
+  
+  # We use blockwise sampling over individuals. In our GMM frameowork, sampling over time periods makes no sense
+  # as it would destroy the GMM instruments.
+  # Input arguments
+  # 1. Number of N* draws: nof_Nstar_draws
+  # 2. Size of each Nstar_draws:
+  # 3. Each Nstar_draws: are a random resample with replacement of blocks
+  
+  # Fix the input argument as a lot of models will be estimated.
+  
+  Data_initial <- model$Set_Vars_with_NAs
+  
+  size_Nstar_draws <- length(unique(model$Set_Vars$category))
+  
+  # Nstar_draws:
+  Nstar_draws <- list()
+  
+  # Set up an uniform distribution and sample individuals between 1 and N
+  for (i0 in 1:nof_Nstar_draws){
+    
+    possible.draws <- length(unique(model$Set_Vars[,c("category")]))
+    
+    x <- unique(model$Set_Vars[,c("category")])
+    
+    prob.x <- rep(1 / possible.draws, possible.draws)
+    Nstar_draws[[i0]] <- sample(x, size = size_Nstar_draws, replace = TRUE, prob = prob.x)
+    
+  }
+  
+  # Set up the model reestimation:
+  # pb <-
+  #   progress::progress_bar$new(format = "Bootstrapping: [:bar] Iteration :current of :total" ,
+  #                              clear = TRUE,
+  #                              total = nof_Nstar_draws)
+  
+  
+  #pvar_irf            <- list()
+  
+  pvar_irf <- 
+    parallel::mclapply(1:nof_Nstar_draws, function(i0) {  
+
+  #for (i0 in 1:nof_Nstar_draws){
+    
+    #pb$tick()
+    # Set up the sampled data for each nof_Nstar_draws estimations
+    #data_resampled <- Data_initial[Data_initial[, model$panel_identifier[1]] ==  Nstar_draws[[i0]][1],]
+    data_resampled <- Data_initial[Data_initial[, "category"] ==  Nstar_draws[[i0]][1],]
+    
+    # Overwrite data_resampled-id, requires unique category
+    data_resampled[,"category"] <- 1
+    
+    
+    # combine resampled data and rename category
+    for (i1 in 2:size_Nstar_draws){
+      
+      zwischen <- Data_initial[Data_initial[, "category"] ==  Nstar_draws[[i0]][i1],]
+      # Overwrite data_resampled-id, requires unique category
+      zwischen[,"category"] <- i1
+      
+      data_resampled <- rbind(data_resampled, zwischen)
+      
+    }
+    
+    # Estimate the pvar model with the sampled data and only save the errors.
+    # do.call(rbind,model$residuals)
+    fct_agr_list <- list(
+      dependent_vars = model$dependent_vars,
+      lags = model$lags,
+      exog_vars = model$exog_vars,
+      transformation = c("demean"),
+      data = data_resampled,
+      panel_identifier = c("category", "period"))
+    
+    if (is.null(model$exog_vars) == TRUE){fct_agr_list$exog_vars = model$exog_vars}
+    
+    pvar_zwischen <- suppressWarnings(do.call(pvarfeols, fct_agr_list))
+    
+    # Give track how the parameters of the estimated model change.
+    #print(coef(pvar_zwischen))
+    # Save the residuals:
+    #Residuals_resampled[[i0]] <- do.call(rbind,pvar_zwischen$residuals)
+    
+    if (typeof_irf == c("OIRF")){
+      oirf(model = pvar_zwischen,
+                             n.ahead = n.ahead)
+    }
+    
+    if (typeof_irf == c("GIRF")){
+      girf(model = pvar_zwischen,
+                             n.ahead = n.ahead,
+                             ma_approx_steps = n.ahead)
+    }
+    
+  }, mc.cores = mc.cores)
+  
+  # Old part from vars package:
+  # definite a mistake here:
+  #lower <- ci / 2
+  #upper <- 1 - ci / 2
+  
+  
+  two_sided_bound <- 1-confidence.band
+  
+  lower <- two_sided_bound / 2
+  upper <- 1 - lower
+  
+  
+  mat.l <- matrix(NA, nrow = n.ahead, ncol = ncol(pvar_irf[[1]][[1]]))
+  mat.u <- matrix(NA, nrow = n.ahead, ncol = ncol(pvar_irf[[1]][[1]]))
+  
+  Lower <- list()
+  Upper <- list()
+  
+  # Impuls: Number of endogenous variables:
+  idx1 <- length(pvar_irf[[1]])
+  
+  # Response: For each Shock all endogenous Variables of the system are shocked.
+  idx2 <- ncol(pvar_irf[[1]][[1]])
+  
+  idx3 <- n.ahead
+  
+  temp <- rep(NA, length(pvar_irf))
+  
+  for(j in 1 : idx1){
+    for(m in 1 : idx2){
+      for(l in 1 : idx3){
+        for(i in 1 : nof_Nstar_draws){
+          if(idx2 > 1){
+            temp[i] <- pvar_irf[[i]][[j]][l, m]
+          } else {
+            temp[i] <- matrix(pvar_irf[[i]][[j]])[l, m]
+          }
+        }
+        mat.l[l, m] <- quantile(temp, lower, na.rm = TRUE)
+        mat.u[l, m] <- quantile(temp, upper, na.rm = TRUE)
+      }
+    }
+    colnames(mat.l) <- model$dependent_vars
+    colnames(mat.u) <- model$dependent_vars
+    Lower[[j]] <- mat.l
+    Upper[[j]] <- mat.u
+  }
+  
+  names(Lower) <- model$dependent_vars
+  names(Upper) <- model$dependent_vars
+  return(list(Lower = Lower, Upper = Upper, Nstar_draws = Nstar_draws, CI = confidence.band))
+}
 
 #' @rdname Andrews_Lu_MMSC
 #' @export 
