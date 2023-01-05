@@ -5,7 +5,7 @@
 \alias{ex1_dahlberg_data}
 \title{Dahlberg results example 1}
 \format{
-An object of class \code{pvargmm} of length 34.
+An object of class \code{pvargmm} of length 35.
 }
 \usage{
 ex1_dahlberg_data

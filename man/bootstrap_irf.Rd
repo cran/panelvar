@@ -51,11 +51,18 @@ Uses blockwise sampling of individuals (bootstrapping).
 }
 \examples{
 \dontrun{
-data("ex1_dahlbergdata")
-bootstrap_irf(ex1_dahlberg_data, 
-              typeof_irf = "OIRF", 
-              n.ahead = 12, 
-              nof_Nstar_draws = 100, 
-              confidence.band = 0.95)
+data("ex1_dahlberg_data")
+ex1_dahlberg_data_bs <-  bootstrap_irf(ex1_dahlberg_data, typeof_irf = c("GIRF"),
+                                       n.ahead = 8,
+                                       nof_Nstar_draws = 500,
+                                       confidence.band = 0.95,
+                                       mc.cores = 100)
+                                           
+                                           
 }
+data("ex1_dahlberg_data")
+ex1_dahlberg_data_girf <-  girf(ex1_dahlberg_data, n.ahead = 8, ma_approx_steps= 8)
+data("ex1_dahlberg_data_bs")
+plot(ex1_dahlberg_data_girf, ex1_dahlberg_data_bs)
+
 }

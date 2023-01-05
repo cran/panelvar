@@ -14,3 +14,7 @@ oirf(model, n.ahead)
 \description{
 Orthogonal Impulse Response Function
 }
+\examples{
+data("ex1_dahlberg_data")
+oirf(ex1_dahlberg_data, n.ahead = 8)
+}

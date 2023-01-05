@@ -91,13 +91,20 @@ ma_phi_representation <- function(Phi, ma_approx_steps, lags){
 #' Uses blockwise sampling of individuals (bootstrapping).
 #' @examples 
 #' \dontrun{
-#' data("ex1_dahlbergdata")
-#' bootstrap_irf(ex1_dahlberg_data, 
-#'               typeof_irf = "OIRF", 
-#'               n.ahead = 12, 
-#'               nof_Nstar_draws = 100, 
-#'               confidence.band = 0.95)
+#' data("ex1_dahlberg_data")
+#' ex1_dahlberg_data_bs <-  bootstrap_irf(ex1_dahlberg_data, typeof_irf = c("GIRF"),
+#'                                        n.ahead = 8,
+#'                                        nof_Nstar_draws = 500,
+#'                                        confidence.band = 0.95,
+#'                                        mc.cores = 100)
+#'                                            
+#'                                            
 #' }
+#' data("ex1_dahlberg_data")
+#' ex1_dahlberg_data_girf <-  girf(ex1_dahlberg_data, n.ahead = 8, ma_approx_steps= 8)
+#' data("ex1_dahlberg_data_bs")
+#' plot(ex1_dahlberg_data_girf, ex1_dahlberg_data_bs)
+#' 
 
 bootstrap_irf <- function(model, typeof_irf, n.ahead, nof_Nstar_draws, confidence.band, mc.cores) UseMethod("bootstrap_irf")
 
@@ -110,16 +117,6 @@ bootstrap_irf.pvargmm <- function(model,
                                     confidence.band = 0.95,
                                   mc.cores = getOption("mc.cores", 2L)
                                     ){
-
-  #example:
-  #model <- test_Q_for_endo_ex1
-  #model <- test_Q_for_endo_ex2B
-  #steps = c("onestep")
-  #data  <- EmplUK
-  #nof_Nstar_draws <- 20
-  #n.ahead <- 12
-  #convidence.band <- 0.95
-
 
   # Start First Block: Set up parameters of the model
 
@@ -153,15 +150,7 @@ bootstrap_irf.pvargmm <- function(model,
   }
 
   # Set up the model reestimation:
-  # pb <-
-  #   progress::progress_bar$new(format = "Bootstrapping: [:bar] Iteration :current of :total" ,
-  #                              clear = TRUE,
-  #                              total = nof_Nstar_draws)
-  # pvar_irf            <- list()
-  # for (i0 in 1:nof_Nstar_draws){
 
-    #pb$tick()
-  #browser()
   pvar_irf <- 
     parallel::mclapply(1:nof_Nstar_draws, function(i0) {  
     # Set up the sampled data for each nof_Nstar_draws estimations
@@ -218,14 +207,14 @@ bootstrap_irf.pvargmm <- function(model,
     #Residuals_resampled[[i0]] <- do.call(rbind,pvar_zwischen$residuals)
 
     if (typeof_irf == c("OIRF")){
-       oirf(model = pvar_zwischen,
-                             n.ahead = n.ahead)
+       return(oirf(model = pvar_zwischen,
+                             n.ahead = n.ahead))
     }
 
     if (typeof_irf == c("GIRF")){
-      girf(model = pvar_zwischen,
+      return(girf(model = pvar_zwischen,
                              n.ahead = n.ahead,
-                             ma_approx_steps = n.ahead)
+                             ma_approx_steps = n.ahead))
     }
 
     }, mc.cores = mc.cores)
@@ -234,7 +223,6 @@ bootstrap_irf.pvargmm <- function(model,
   # definite a mistake here:
   #lower <- ci / 2
   #upper <- 1 - ci / 2
-
 
   two_sided_bound <- 1-confidence.band
 
@@ -408,14 +396,14 @@ bootstrap_irf.pvarfeols <- function(model,
     #Residuals_resampled[[i0]] <- do.call(rbind,pvar_zwischen$residuals)
     
     if (typeof_irf == c("OIRF")){
-      oirf(model = pvar_zwischen,
-                             n.ahead = n.ahead)
+      return(oirf(model = pvar_zwischen,
+                             n.ahead = n.ahead))
     }
     
     if (typeof_irf == c("GIRF")){
-      girf(model = pvar_zwischen,
+      return(girf(model = pvar_zwischen,
                              n.ahead = n.ahead,
-                             ma_approx_steps = n.ahead)
+                             ma_approx_steps = n.ahead))
     }
     
   }, mc.cores = mc.cores)

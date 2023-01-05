@@ -12,7 +12,7 @@ girf(model, n.ahead, ma_approx_steps)
 \arguments{
 \item{model}{A PVAR model}
 
-\item{n.ahead}{Any stable AR() model has an infinite MA representation. Hence any shock can be simulated infinitely into the future. For each forecast step t you need an addtional MA term.}
+\item{n.ahead}{Any stable AR() model has an infinite MA representation. Hence any shock can be simulated infinitely into the future. For each forecast step t you need an additional MA term.}
 
 \item{ma_approx_steps}{MA approximation steps}
 }

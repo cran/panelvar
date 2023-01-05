@@ -504,6 +504,9 @@ hansen_j_test.pvargmm <- function(model, ...){
 #'
 #' @param model A PVAR model
 #' @param n.ahead Any stable AR() model has an infinite MA representation. Hence any shock can be simulated infinitely into the future. For each forecast step t you need an addtional MA term.
+#' @examples
+#' data("ex1_dahlberg_data")
+#' oirf(ex1_dahlberg_data, n.ahead = 8)
 #' @export
 oirf <- function(model, n.ahead) UseMethod("oirf")
 
@@ -620,7 +623,7 @@ plot.pvaroirf <- function(x, cibootstrap_results, ...) {
 #' Generalized Impulse Response Function
 #'
 #' @param model A PVAR model
-#' @param n.ahead Any stable AR() model has an infinite MA representation. Hence any shock can be simulated infinitely into the future. For each forecast step t you need an addtional MA term.
+#' @param n.ahead Any stable AR() model has an infinite MA representation. Hence any shock can be simulated infinitely into the future. For each forecast step t you need an additional MA term.
 #' @param ma_approx_steps MA approximation steps
 #'
 #' @export
