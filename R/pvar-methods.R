@@ -267,10 +267,10 @@ fixedeffects.pvargmm <- function(model, Only_Non_NA_rows = TRUE, ...){
 
   X_mean_2 <- c(if(!is.null(model$predet_vars)){model$predet_vars}, if(!is.null(model$exog_vars)){model$exog_vars})
 
-  X_mean <- c(X_mean_1, if(!is.null(X_mean_2)){X_mean_2}, if(model$system_instruments==TRUE){"const"})
+  X_mean <- c(X_mean_1, if(!is.null(X_mean_2)){X_mean_2}, if(model$system_instruments==TRUE & model$system_constant == TRUE){"const"})
 
   # Add a column with 1 if system instruments are TRUE.
-  if (model$system_instruments==TRUE){
+  if (model$system_instruments==TRUE & model$system_constant == TRUE){
     model$Set_Vars$const <- 1
   }
 

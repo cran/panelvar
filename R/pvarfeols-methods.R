@@ -58,6 +58,7 @@ print.pvarfeols <- function(x, ...) {
 #' Knit Print Method for pvarfeols
 #' @param x object
 #' @param ... further arguments
+#' @method knit_print pvarfeols
 #' @export
 
 knit_print.pvarfeols <- function(x, ...) {
@@ -118,6 +119,7 @@ print.summary.pvarfeols <- function(x, ...) {
 #' Knit Print summary Method
 #' @param x object
 #' @param ... further arguments
+#' @method knit_print summary.pvarfeols
 #' @export
 knit_print.summary.pvarfeols <- function(x, ...) {
   res <- paste0(c("<p><b>",x$model_name,"</b></p>",

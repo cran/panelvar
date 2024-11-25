@@ -1,6 +1,6 @@
 bibentry("Article",
          title        = "Panel Vector Autoregression in R with the package panelvar",
-         author       = personList(as.person("Michael Sigmund"),
+         author       = c(as.person("Michael Sigmund"),
                                    as.person("Robert Ferstl")),
          journal      = "The Quarterly Review of Economics and Finance",
          year         = "2021",

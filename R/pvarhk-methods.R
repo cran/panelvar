@@ -57,6 +57,7 @@ print.pvarhk <- function(x, ...) {
 #' Knit Print Method for pvarhk
 #' @param x object
 #' @param ... further arguments
+#' @method knit_print pvarhk
 #' @export
 
 knit_print.pvarhk <- function(x, ...) {
@@ -118,6 +119,7 @@ print.summary.pvarhk <- function(x, ...) {
 #' @param x object
 #' @param ... further arguments
 #' @export
+#' @method knit_print summary.pvarhk
 #' @importFrom knitr knit_print
 knit_print.summary.pvarhk <- function(x, ...) {
   res <- paste0(c("<p><b>",x$model_name,"</b></p>",

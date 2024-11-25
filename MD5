@@ -1,4 +1,4 @@
-7dd4c269ab84cdbfd65adb22d662b90a *DESCRIPTION
+8253575299039fa0dfd5282d5759b3ef *DESCRIPTION
 5a087361a56f295410d93b830f2e834c *NAMESPACE
 e5464a03e3dfa5e3fe1fe048ca3591ca *R/Endo_Lmin_Lmax_transition_matrix.R
 0b3266856ab7a0ac9d3de547916f6fba *R/Predetermined_Lmin_Lmax_transition_matrix.R
@@ -6,15 +6,15 @@ e5464a03e3dfa5e3fe1fe048ca3591ca *R/Endo_Lmin_Lmax_transition_matrix.R
 d1e6a61af6fc245a806e5050f7cad22b *R/helper_functions.R
 a355aad5aa9ed1116fa33ba0ade0f1ba *R/panel_lag.R
 2910fb3dc1aa965905a37174aa72bbeb *R/pca_transformation_matrix.R
-48bbc619f74c9e70add85ea36690a0fa *R/pvar-methods.R
-b5bf188bfeaae0e2a65c0adfa0aa46d8 *R/pvar.R
+96ecb2e5c6661c7677df1b85f7cda3c4 *R/pvar-methods.R
+889e39b95fe41ffd4b03b9f685092be9 *R/pvar.R
 3daf274b8601be941b62c21f9571b405 *R/pvar_fe_ols.R
-94a41a2da6a915cf058eb49f7dd5fbb4 *R/pvarfeols-methods.R
-25f5cc0430bccabffef897045366b1b9 *R/pvarhk-methods.R
+066a30c219b4210a4c00e1cda7088640 *R/pvarfeols-methods.R
+6e193acf249f8376ab42213f3cffe933 *R/pvarhk-methods.R
 aae2c1f6cacec40485248d8d17de5eaf *R/pvarhk.R
 f7e30ea09280e332114bab65d94d46a0 *R/rows_Q.R
 5957a9fd7863d760c1ba91581b987038 *R/zzz.R
-0c6ad5b3446721162c89589e8077ab1c *build/partial.rdb
+f61db891eb928123aba4412ca322f508 *build/partial.rdb
 ccbe91de0a5097ec1b5dd52a06e8ff02 *data/Cigar.rda
 210435e4a5bf7cf4cee539ceb5b09c3e *data/Dahlberg.rda
 3ae7ce30589cb54c438571f6c0fa98dc *data/abdata.rda
@@ -23,7 +23,7 @@ f1986fc65f12c5b134690b2e8a4049f7 *data/ex1_dahlberg_data_bs.rda
 6ffa113bc6efd80cf835dcb71baf905a *data/ex2_nlswork2_data_bs.rda
 14d8b5ef94d42febe206e0fce437de18 *data/ex3_abdata.rda
 f5751615776b607f036c06c6fbb7fb24 *data/nlswork2.rda
-5a2c38b89daa72305ab0439249cdf812 *inst/CITATION
+b11cd038fd248f9c31678299f3c485ee *inst/CITATION
 b998a30030c4ca680b6d8abc608d8a32 *inst/bootstrap_irf.pvarfeols.R
 4358e354fe7a9aa4e79da892efbb670b *inst/predict_resids_level.R
 0fe685eaf77577f8d623182533714573 *man/Andrews_Lu_MMSC.Rd
@@ -61,7 +61,7 @@ cdf579dc8220f4a7402299ab0b71bee7 *man/print.summary.pvargmm.Rd
 e064d81caaa7f8bd17cc57b713e39a64 *man/print.summary.pvarhk.Rd
 e25fd1aa78ccd53757762c3a7694000c *man/pvalue.Rd
 da15bc1950cff8d3c14a6e804737586d *man/pvarfeols.Rd
-d8690b50b1b89cb1f9820b66045592ea *man/pvargmm.Rd
+1452da6134cd5b0f5d8eb4cd11b8b682 *man/pvargmm.Rd
 7af9ffba67854d52affc434dafc574bc *man/pvarhk.Rd
 71c6c734c66bb50872c9588d42381bda *man/residuals_level.Rd
 429bf18015b6cfbc4da365fc4a654408 *man/se.Rd
